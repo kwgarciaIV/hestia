@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import 'package:page_transition/page_transition.dart';
+import 'HomePage.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
   @override
   final username = new TextEditingController();
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kVeryDarkGreen,
+      backgroundColor: kMainDarkGreen,
       //resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 70,
+              height: 30,
             ),
             Container(
               child: Image.asset(
@@ -63,15 +64,15 @@ class _LoginState extends State<Login> {
             ),
             ElevatedButton(
               onPressed: () {
-                /*  Navigator.push(
+                Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.fade,
-                    child: CustomScreen(name: yourName.text),
+                    child: HomePage(),
                     duration: Duration(milliseconds: 500),
                     reverseDuration: Duration(milliseconds: 500),
                   ),
-                );*/
+                );
               },
               style: ElevatedButton.styleFrom(
                 primary: kGold,
