@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'package:page_transition/page_transition.dart';
-import 'NavigationBar.dart';
+import '../Components/NavigationBar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

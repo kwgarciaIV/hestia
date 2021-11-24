@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Login extends StatefulWidget {
