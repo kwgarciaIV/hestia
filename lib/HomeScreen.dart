@@ -18,16 +18,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: <Widget>[
           FloatingActionButton(
-              child: Text('test'),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.leftToRight,
-                        child: NavigationBar(),
-                        )
-                );
-              }
+            child: Text('test'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.leftToRight,
+                  child: NavigationBar(),
+                ),
+              );
+            },
           ),
         ],
       ),
