@@ -9,18 +9,6 @@ class AddTaskPopUp extends StatefulWidget {
   _AddTaskPopUpState createState() => _AddTaskPopUpState();
 }
 
-const kLabelInputField = TextStyle(
-    fontFamily: 'Montserrat-SemiBold',
-    fontSize: 15.0,
-    color: Color(0xFF57706F));
-const kHintTextStyle = TextStyle(
-    fontSize: 15,
-    color: kGrayButton,
-    fontStyle: FontStyle.italic,
-    fontFamily: 'Montserrat-Medium');
-const kInputTextStyle = TextStyle(
-    color: Colors.black, fontSize: 15.0, fontFamily: 'Montserrat-SemiBold');
-
 class _AddTaskPopUpState extends State<AddTaskPopUp> {
   String dropDownValue = '';
   @override
@@ -103,45 +91,50 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
           //     ),
           //   ),
           // ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-            child: DropdownButton(
-              //buttonstyle: ButtonStyle(),
-              hint: dropDownValue == ''
-                  ? Text('Choose Task Category')
-                  : Text(
-                      dropDownValue,
-                      style: dropDownValue == ''
-                          ? kHintTextStyle
-                          : kInputTextStyle,
-                    ),
-              isExpanded: true,
-              focusColor: Colors.white,
-              iconSize: 30.0,
-              style: dropDownValue == '' ? kHintTextStyle : kInputTextStyle,
-              items: [
-                'Chores',
-                'Cleaning',
-                'Cooking',
-                'Meeting',
-                'Event',
-                'Appointment',
-                'Miscellaneous'
-              ].map(
-                (val) {
-                  return DropdownMenuItem<String>(
-                    value: val,
-                    child: Text(val),
+          Container(
+            color: Colors.white,
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+              child: DropdownButton(
+                //buttonstyle: ButtonStyle(),
+                hint: dropDownValue == ''
+                    ? Text('Choose Task Category')
+                    : Text(
+                        dropDownValue,
+                        style: dropDownValue == ''
+                            ? kHintTextStyle
+                            : kInputTextStyle,
+                      ),
+                isExpanded: true,
+                focusColor: Colors.white,
+                iconSize: 30.0,
+                style: dropDownValue == '' ? kHintTextStyle : kInputTextStyle,
+                items: [
+                  'Chores',
+                  'Cleaning',
+                  'Cooking',
+                  'Meeting',
+                  'Event',
+                  'Appointment',
+                  'Miscellaneous'
+                ].map(
+                  (val) {
+                    return DropdownMenuItem<String>(
+                      value: val,
+                      child: Text(val),
+                    );
+                  },
+                ).toList(),
+                onChanged: (val) {
+                  setState(
+                    () {
+                      dropDownValue = val.toString();
+                    },
                   );
                 },
-              ).toList(),
-              onChanged: (val) {
-                setState(
-                  () {
-                    dropDownValue = val.toString();
-                  },
-                );
-              },
+              ),
             ),
           ),
           Padding(

@@ -28,25 +28,19 @@ class _BottomActionState extends State<BottomAction> {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddTaskPopUp();
-                    }
-                    //AddTaskPopUp(),
-                    );
-                //_showBottomBar(false);
-                // sheetController.closed.then((value) {
-                //   _showBottomBar(true);
-                // });
-              },
-              child: Expanded(
-                flex: 6,
+            Expanded(
+              flex: 6,
+              child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddTaskPopUp();
+                      });
+                },
                 child: Container(
                   margin: EdgeInsets.only(left: 5, right: 10),
                   decoration: BoxDecoration(
