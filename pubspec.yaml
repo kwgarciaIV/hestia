@@ -16,6 +16,7 @@ dependencies:
   page_transition: ^2.0.2
   sizer: ^2.0.15
   flutter_screenutil: ^5.0.0+2
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_test:

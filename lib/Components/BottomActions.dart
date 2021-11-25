@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomAction extends StatefulWidget {
   const BottomAction({Key? key}) : super(key: key);
@@ -49,23 +50,35 @@ class _BottomActionState extends State<BottomAction> {
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                decoration:
-                    BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              child: CircleAvatar(
+                child: FaIcon(
+                  FontAwesomeIcons.home,
+                  color: kOffWhite,
+                ), // Icon widget changed with FaIcon
+                radius: 60.0,
+                backgroundColor: kMainDarkGreen,
               ),
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                decoration:
-                    BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              child: CircleAvatar(
+                child: FaIcon(
+                  FontAwesomeIcons.calendarWeek,
+                  color: kOffWhite,
+                ), // Icon widget changed with FaIcon
+                radius: 60.0,
+                backgroundColor: kMainDarkGreen,
               ),
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                decoration:
-                    BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              child: CircleAvatar(
+                child: FaIcon(
+                  FontAwesomeIcons.boxOpen,
+                  color: kOffWhite,
+                ), // Icon widget changed with FaIcon
+                radius: 60.0,
+                backgroundColor: kMainDarkGreen,
               ),
             ),
           ],
