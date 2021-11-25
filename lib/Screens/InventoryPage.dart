@@ -69,11 +69,7 @@ class _InventoryPageState extends State<InventoryPage> {
                             Text(
                               'Track your food items here',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.0,
-                                fontFamily: 'Poppins-Regular',
-                              ),
+                              style: kSubHeading,
                             ),
                           ],
                         ),

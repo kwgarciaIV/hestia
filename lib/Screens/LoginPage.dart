@@ -1,7 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hestia/Screens/HomePage.dart';
-import 'package:hestia/Screens/SignUpPage.dart';
 import '../constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,46 +71,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
-              child: TextField(
-                controller: password,
-                autofocus: false,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Montserrat-SemiBold',
-                  fontSize: 16,
-                ),
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: CircleAvatar(
-                      child: FaIcon(
-                        //im so sorry T.T di ko sure kung maganda to pero eto lang talaga available rawr
-                        FontAwesomeIcons.lock,
-                        color: kOffWhite,
-                      ), // Icon widget changed with FaIcon
-                      radius: 20.0,
-                      backgroundColor: Color(0xFF57706F),
-                    ),
-                  ),
-                  hintStyle: TextStyle(
-                    color: Colors.white70,
-                    fontFamily: 'Montserrat-SemiBold',
-                    fontSize: 16,
-                  ),
-                  filled: true,
-                  fillColor: Color(0xFF57706F),
-                ),
-              ),
-            ),
-            //replace for responsiveness
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -127,14 +85,14 @@ class _LoginPageState extends State<LoginPage> {
               },
               style: ElevatedButton.styleFrom(
                 primary: kGold,
-                padding: EdgeInsets.symmetric(horizontal: 140, vertical: 17),
+                padding: EdgeInsets.symmetric(horizontal: 130, vertical: 17),
                 textStyle: TextStyle(fontSize: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10), // <-- Radius
                 ),
               ),
               child: Text(
-                'Log in',
+                'Proceed',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: kVeryDarkGreen,
@@ -143,45 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Don\'t have an account? ',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat-SemiBold',
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'Sign up!',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat-Bold',
-                        fontSize: 14,
-                        color: kGold,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.fade,
-                              child: SignUpPage(),
-                              duration: Duration(milliseconds: 500),
-                              reverseDuration: Duration(milliseconds: 500),
-                            ),
-                          );
-                        },
-                    ),
-                  ],
-                ),
-              ),
-            ),
             SizedBox(
-              height: 70,
+              height: 100,
             ),
             Text(
               '© 2021 Tessera. All rights reserved.',

@@ -25,3 +25,21 @@ const kNavBarTextStylePressed = TextStyle(
   fontSize: 20.0,
   fontFamily: 'Montserrat-Bold',
 );
+
+const kHeading = TextStyle(
+  color: kGold,
+  fontSize: 40.0,
+  fontFamily: 'Poppins-Bold',
+);
+
+const kSubHeading = TextStyle(
+  color: Colors.white,
+  fontSize: 16.0,
+  fontFamily: 'Poppins-Regular',
+);
+
+const kTitle = TextStyle(
+  fontFamily: 'Poppins-Bold',
+  fontSize: 25,
+  color: kVeryDarkGreen,
+);
