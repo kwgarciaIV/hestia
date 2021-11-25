@@ -3,6 +3,8 @@ import 'package:hestia/constants.dart';
 //import 'package:sizer/sizer.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../Screens/HomePage.dart';
+import '../Screens/InventoryPage.dart';
 
 class NavigationBar extends StatefulWidget {
   const NavigationBar({Key? key}) : super(key: key);
@@ -39,8 +41,9 @@ class _NavigationBarState extends State<NavigationBar> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        leading: GestureDetector(
-          onTap: () {
+        leading: IconButton(
+          icon: Image.asset('images/navigation_button_white.png', height: 20.0),
+          onPressed: () {
             Navigator.pop(
               context,
               PageTransition(
@@ -49,11 +52,6 @@ class _NavigationBarState extends State<NavigationBar> {
               ),
             );
           },
-          child: new Icon(
-            Icons.keyboard_control_rounded,
-            color: kOffWhite,
-            size: 40.0,
-          ),
         ),
       ),
       backgroundColor: kMainDarkGreen,
@@ -102,6 +100,13 @@ class _NavigationBarState extends State<NavigationBar> {
                       onTap: () {
                         setState(() {
                           selectedPage = PageSelection.home;
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: HomePage(),
+                            ),
+                          );
                         });
                       },
                       child: Text(
@@ -163,6 +168,13 @@ class _NavigationBarState extends State<NavigationBar> {
                     GestureDetector(
                       onTap: () {
                         selectedPage = PageSelection.inventory;
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: InventoryPage(),
+                          ),
+                        );
                       },
                       child: Text(
                         'Inventory',

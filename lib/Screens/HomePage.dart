@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
+import '../Components/NavigationBar.dart';
 
 //Klee Comments
 //No NavBar button
@@ -33,13 +35,30 @@ class _HomePageState extends State<HomePage> {
       designSize: const Size(360, 640),
       builder: () => Scaffold(
         backgroundColor: kOffWhite,
+        appBar: AppBar(
+          backgroundColor: kMainDarkGreen,
+          shadowColor: Colors.transparent,
+          leading: IconButton(
+            icon:
+                Image.asset('images/navigation_button_white.png', height: 20.0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.leftToRight,
+                  child: NavigationBar(),
+                ),
+              );
+            },
+          ),
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: new EdgeInsets.fromLTRB(30, 70, 0, 25),
+                  padding: new EdgeInsets.fromLTRB(30, 30, 0, 25),
                   decoration: BoxDecoration(
                     color: kMainDarkGreen,
                   ),
