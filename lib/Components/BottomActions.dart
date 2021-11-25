@@ -38,7 +38,7 @@ class _BottomActionState extends State<BottomAction> {
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: Text(
-                      'Add to Calendar',
+                      'Add Task',
                       style: TextStyle(
                         color: kMainDarkGreen,
                         fontFamily: 'Montserrat-Bold',
