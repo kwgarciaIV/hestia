@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hestia/Screens/HomePage.dart';
 import '../constants.dart';
 import 'package:page_transition/page_transition.dart';
-import 'HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

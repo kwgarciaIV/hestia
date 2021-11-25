@@ -5,6 +5,7 @@ import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import '../Components/NavigationBar.dart';
+import 'package:hestia/Components/BottomActions.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({Key? key}) : super(key: key);
@@ -187,67 +188,7 @@ class _InventoryPageState extends State<InventoryPage> {
             ),
           ),
         ),
-        bottomNavigationBar: Container(
-          margin: EdgeInsets.fromLTRB(30, 0, 30, 20),
-          height: 60,
-          decoration: BoxDecoration(
-            color: kMainDarkGreen,
-            borderRadius: BorderRadius.circular(10.0),
-            boxShadow: [
-              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 6,
-                  child: Container(
-                    margin: EdgeInsets.only(left: 5, right: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          'Add to Calendar',
-                          style: TextStyle(
-                            color: kMainDarkGreen,
-                            fontFamily: 'Montserrat-Bold',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        bottomNavigationBar: BottomAction(),
       ),
     );
   }
