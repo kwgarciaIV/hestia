@@ -32,7 +32,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 context,
                 PageTransition(
                   type: PageTransitionType.leftToRight,
-                  child: NavigationBar(),
+                  child: NavigationBar(selectedPage: PageSelection.inventory),
                 ),
               );
             },

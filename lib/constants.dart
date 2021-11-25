@@ -13,3 +13,15 @@ const kPurple = Color(0xFFC49CD7);
 const kGrayHeading = Color(0xFFC4C4C4);
 const kGrayTextField = Color(0xFFE6E3DF);
 const kGrayButton = Color(0xFFADADAD);
+
+const kNavBarTextStyle = TextStyle(
+  color: kOffWhite,
+  fontSize: 20.0,
+  fontFamily: 'Montserrat-Regular',
+);
+
+const kNavBarTextStylePressed = TextStyle(
+  color: kOffWhite,
+  fontSize: 20.0,
+  fontFamily: 'Montserrat-Bold',
+);

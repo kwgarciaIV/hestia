@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
-//import 'package:sizer/sizer.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Screens/HomePage.dart';
 import '../Screens/InventoryPage.dart';
 
-class NavigationBar extends StatefulWidget {
-  const NavigationBar({Key? key}) : super(key: key);
-
-  @override
-  _NavigationBarState createState() => _NavigationBarState();
-}
-
-const kNavBarTextStyle = TextStyle(
-  color: kOffWhite,
-  fontSize: 20.0,
-  fontFamily: 'Montserrat-Regular',
-);
-
-const kNavBarTextStylePressed = TextStyle(
-  color: kOffWhite,
-  fontSize: 20.0,
-  fontFamily: 'Montserrat-Bold',
-);
-
 enum PageSelection { home, calendar, inventory, about, settings }
 
+class NavigationBar extends StatefulWidget {
+  NavigationBar({@required this.selectedPage});
+  PageSelection? selectedPage;
+
+  @override
+  _NavigationBarState createState() =>
+      _NavigationBarState(selectedPage: selectedPage);
+}
+
 class _NavigationBarState extends State<NavigationBar> {
-  PageSelection selectedPage = PageSelection.home;
+  _NavigationBarState({required this.selectedPage});
+  PageSelection? selectedPage;
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
@@ -44,13 +34,13 @@ class _NavigationBarState extends State<NavigationBar> {
         leading: IconButton(
           icon: Image.asset('images/navigation_button_white.png', height: 20.0),
           onPressed: () {
-            Navigator.pop(
+            /*Navigator.pop(
               context,
               PageTransition(
                 type: PageTransitionType.rightToLeft,
-                child: NavigationBar(),
+                child: NavigationBar(selectedPage: ),
               ),
-            );
+            );*/
           },
         ),
       ),
@@ -167,7 +157,9 @@ class _NavigationBarState extends State<NavigationBar> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        selectedPage = PageSelection.inventory;
+                        setState(() {
+                          selectedPage = PageSelection.inventory;
+                        });
                         Navigator.push(
                           context,
                           PageTransition(
@@ -203,7 +195,9 @@ class _NavigationBarState extends State<NavigationBar> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        selectedPage = PageSelection.about;
+                        setState(() {
+                          selectedPage = PageSelection.about;
+                        });
                       },
                       child: Text(
                         'About Us',

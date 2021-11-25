@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 PageTransition(
                   type: PageTransitionType.leftToRight,
-                  child: NavigationBar(),
+                  child: NavigationBar(selectedPage: PageSelection.home),
                 ),
               );
             },
