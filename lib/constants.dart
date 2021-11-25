@@ -43,3 +43,20 @@ const kTitle = TextStyle(
   fontSize: 25,
   color: kVeryDarkGreen,
 );
+
+const kCardTitle = TextStyle(
+  fontFamily: 'Poppins-Bold',
+  fontSize: 21,
+  color: kVeryDarkGreen,
+);
+
+const kCardCateg = TextStyle(
+  fontFamily: 'Poppins-SemiBold',
+  fontSize: 14,
+  color: kGrayButton,
+);
+
+const kCardDesc = TextStyle(
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 12,
+);

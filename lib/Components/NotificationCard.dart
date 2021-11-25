@@ -32,19 +32,11 @@ class NotificationCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: TextStyle(
-                    fontFamily: 'Poppins-Bold',
-                    fontSize: 21,
-                    color: kVeryDarkGreen,
-                  ),
+                  style: kCardTitle,
                 ),
                 Text(
                   categ,
-                  style: TextStyle(
-                    fontFamily: 'Poppins-SemiBold',
-                    fontSize: 14,
-                    color: kGrayButton,
-                  ),
+                  style: kCardCateg,
                 )
               ],
             ),
@@ -52,10 +44,7 @@ class NotificationCard extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 desc,
-                style: TextStyle(
-                  fontFamily: 'Montserrat-SemiBold',
-                  fontSize: 12,
-                ),
+                style: kCardDesc,
               ),
             ),
           ],

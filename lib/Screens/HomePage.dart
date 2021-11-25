@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hestia/Components/BottomActions.dart';
 import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import '../Components/NavigationBar.dart';
 import '../Components/NotificationCard.dart';
+import '../Components/SwipableTaskCard.dart';
 
 //Klee Comments
 //No NavBar button
@@ -101,19 +103,28 @@ class _HomePageState extends State<HomePage> {
                           color: kGrayButton,
                         ),
                       ),
-                      Container(
-                        padding: new EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5.0, vertical: 8.0),
-                          child: Column(children: <Widget>[]),
-                        ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SwipableTaskCard(
+                        taskTitle: 'Lorem Ipsum' + '\t',
+                        taskType: 'Task Type',
+                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
+                      ),
+                      SwipableTaskCard(
+                        taskTitle: 'Lorem Ipsum' + '\t',
+                        taskType: 'Task Type',
+                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
+                      ),
+                      SwipableTaskCard(
+                        taskTitle: 'Lorem Ipsum' + '\t',
+                        taskType: 'Task Type',
+                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
+                      ),
+                      SwipableTaskCard(
+                        taskTitle: 'Lorem Ipsum' + '\t',
+                        taskType: 'Task Type',
+                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
