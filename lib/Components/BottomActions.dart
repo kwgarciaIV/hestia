@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'AddTaskPopUp.dart';
 
 class BottomAction extends StatefulWidget {
   const BottomAction({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class BottomAction extends StatefulWidget {
 class _BottomActionState extends State<BottomAction> {
   @override
   Widget build(BuildContext context) {
+    //return _show
     return Container(
       margin: EdgeInsets.fromLTRB(30, 0, 30, 20),
       height: 60,
@@ -26,22 +28,40 @@ class _BottomActionState extends State<BottomAction> {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: <Widget>[
-            Expanded(
-              flex: 6,
-              child: Container(
-                margin: EdgeInsets.only(left: 5, right: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      'Add Task',
-                      style: TextStyle(
-                        color: kMainDarkGreen,
-                        fontFamily: 'Montserrat-Bold',
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddTaskPopUp();
+                    }
+                    //AddTaskPopUp(),
+                    );
+                //_showBottomBar(false);
+                // sheetController.closed.then((value) {
+                //   _showBottomBar(true);
+                // });
+              },
+              child: Expanded(
+                flex: 6,
+                child: Container(
+                  margin: EdgeInsets.only(left: 5, right: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        'Add Task',
+                        style: TextStyle(
+                          color: kMainDarkGreen,
+                          fontFamily: 'Montserrat-Bold',
+                        ),
                       ),
                     ),
                   ),
@@ -85,5 +105,12 @@ class _BottomActionState extends State<BottomAction> {
         ),
       ),
     );
+    //: Row();
   }
+
+//   void _showBottomBar(bool value) {
+//     setState(() {
+//       _show = value;
+//     });
+//   }
 }
