@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 PageTransition(
                   type: PageTransitionType.leftToRight,
-                  child: NavigationBar(),
+                  child: NavigationBar(selectedPage: PageSelection.home),
                 ),
               );
             },

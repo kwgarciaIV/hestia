@@ -8,7 +8,7 @@ import '../Screens/InventoryPage.dart';
 enum PageSelection { home, calendar, inventory, about, settings }
 
 class NavigationBar extends StatefulWidget {
-  NavigationBar({@required this.selectedPage});
+  NavigationBar({this.selectedPage});
   PageSelection? selectedPage;
 
   @override
@@ -17,7 +17,7 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-  _NavigationBarState({required this.selectedPage});
+  _NavigationBarState({this.selectedPage});
   PageSelection? selectedPage;
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,13 @@ class _NavigationBarState extends State<NavigationBar> {
         leading: IconButton(
           icon: Image.asset('images/navigation_button_white.png', height: 20.0),
           onPressed: () {
-            /*Navigator.pop(
+            Navigator.pop(
               context,
               PageTransition(
                 type: PageTransitionType.rightToLeft,
-                child: NavigationBar(selectedPage: ),
+                child: NavigationBar(),
               ),
-            );*/
+            );
           },
         ),
       ),
