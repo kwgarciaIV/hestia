@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SwipableTaskCard(
                         taskTitle: 'Lorem Ipsum' + '\t',
-                        taskType: 'Task Type',
+                        taskType: 'Task Type 2',
                         taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
                       ),
                       SwipableTaskCard(

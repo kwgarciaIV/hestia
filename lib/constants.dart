@@ -60,3 +60,17 @@ const kCardDesc = TextStyle(
   fontFamily: 'Montserrat-SemiBold',
   fontSize: 12,
 );
+
+const kLabelInputField = TextStyle(
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 15.0,
+    color: Color(0xFF57706F));
+
+const kHintTextStyle = TextStyle(
+    fontSize: 15,
+    color: kGrayButton,
+    fontStyle: FontStyle.italic,
+    fontFamily: 'Montserrat-Medium');
+
+const kInputTextStyle = TextStyle(
+    color: Colors.black, fontSize: 15.0, fontFamily: 'Montserrat-SemiBold');
