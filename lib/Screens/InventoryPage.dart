@@ -83,25 +83,80 @@ class _InventoryPageState extends State<InventoryPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: RichText(
-                          text: new TextSpan(
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'Poppins-Regular',
-                              color: kMainDarkGreen,
-                            ),
-                            children: <TextSpan>[
-                              new TextSpan(
-                                text: 'November 24, ',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins-Bold',
+                      Container(
+                        padding: new EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: Text(
+                                        'Item Title',
+                                        style: TextStyle(
+                                          color: kVeryDarkGreen,
+                                          fontSize: 25.0,
+                                          fontFamily: 'Poppins-Bold',
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 30),
+                                      color: kGrayButton,
+                                    )
+                                  ],
                                 ),
                               ),
-                              new TextSpan(
-                                text: 'Wednesday',
-                              ),
+                              Row(
+                                children: <Widget>[
+                                  Container(
+                                      height: 50,
+                                      width: 2,
+                                      color: kGrayHeading),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 5),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          '00',
+                                          style: TextStyle(
+                                            color: kVeryDarkGreen,
+                                            fontSize: 40.0,
+                                            fontFamily: 'Montserrat-Bold',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Quantity',
+                                          style: TextStyle(
+                                            color: kGrayHeading,
+                                            fontSize: 12.0,
+                                            fontFamily: 'Montserrat-SemiBold',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.more_vert,
+                                    size: 30,
+                                    color: Color(0xFF959595),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
