@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hestia/Screens/HomePage.dart';
 import '../constants.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -51,7 +52,17 @@ class _LoginPageState extends State<LoginPage> {
 
                   //To be changed, di ako marunong mag lagay ng icons T.T Padding on the left must be added~
                   //Tsaka umiilaw siya di ko alam bakit, paskong pasko na siguro.
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: CircleAvatar(
+                      child: FaIcon(
+                        FontAwesomeIcons.userCircle,
+                        color: kOffWhite,
+                      ), // Icon widget changed with FaIcon
+                      radius: 20.0,
+                      backgroundColor: Color(0xFF57706F),
+                    ),
+                  ),
                   hintStyle: TextStyle(
                     color: Colors.white70,
                     fontFamily: 'Montserrat-SemiBold',
