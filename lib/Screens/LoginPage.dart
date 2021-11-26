@@ -3,6 +3,7 @@ import 'package:hestia/Screens/HomePage.dart';
 import '../constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   final username = new TextEditingController();
-  final password = new TextEditingController();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +72,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                String name = username.text;
+                prefs.setString('displayName', name);
                 Navigator.push(
                   context,
                   PageTransition(
