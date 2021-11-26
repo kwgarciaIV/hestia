@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import '../Components/NavigationBar.dart';
 import 'package:hestia/Components/BottomActions.dart';
 import '../Components/SwipableInventoryCard.dart';
+import 'package:hestia/Components/AddInventoryPopUp.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({Key? key}) : super(key: key);
@@ -87,7 +88,17 @@ class _InventoryPageState extends State<InventoryPage> {
                                       fontSize: 40,
                                     )),
                                 backgroundColor: Colors.white,
-                                onPressed: () {},
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AddInventoryPopUp();
+                                      });
+                                },
                               ),
                             ),
                           ),
