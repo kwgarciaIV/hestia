@@ -8,6 +8,7 @@ import 'package:page_transition/page_transition.dart';
 import '../Components/NavigationBar.dart';
 import '../Components/NotificationCard.dart';
 import '../Components/SwipableTaskCard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //Klee Comments
 //No NavBar button
@@ -18,8 +19,6 @@ import '../Components/SwipableTaskCard.dart';
 enum SelectedTab { add, home, weekly, inventory }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -33,8 +32,29 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  String? displayName = '';
+
+  @override
+  void initState() {
+    getData();
+  }
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      displayName = prefs.getString('displayName');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    String display() {
+      if (displayName != null)
+        return "Hi $displayName !";
+      else
+        return "Hi!";
+    }
+
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => Scaffold(
@@ -72,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'Roomie!',
+                        display(),
                         textAlign: TextAlign.left,
                         style: kHeading,
                       ),
