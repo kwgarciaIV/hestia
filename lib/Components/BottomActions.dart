@@ -33,13 +33,14 @@ class _BottomActionState extends State<BottomAction> {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddTaskPopUp();
-                      });
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddTaskPopUp();
+                    },
+                  );
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 5, right: 10),

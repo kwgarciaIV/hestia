@@ -111,16 +111,19 @@ class _InventoryPageState extends State<InventoryPage> {
                     children: [
                       SwipableInventoryCard(
                           itemTitle: 'Lorem Ipsum',
-                          quantity: 00,
-                          category: 'eheheh'),
+                          quantity: 12,
+                          category: 'eheheh',
+                          measure: 'kg'),
+                      SwipableInventoryCard(
+                          itemTitle: 'Lorem Ipsum',
+                          quantity: 10,
+                          category: 'eheheh',
+                          measure: 'g'),
                       SwipableInventoryCard(
                           itemTitle: 'Lorem Ipsum',
                           quantity: 00,
-                          category: 'eheheh'),
-                      SwipableInventoryCard(
-                          itemTitle: 'Lorem Ipsum',
-                          quantity: 00,
-                          category: 'eheheh'),
+                          category: 'eheheh',
+                          measure: 'bottles'),
                     ],
                   ),
                 ),

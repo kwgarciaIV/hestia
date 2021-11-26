@@ -6,23 +6,30 @@ class SwipableInventoryCard extends StatefulWidget {
   SwipableInventoryCard(
       {@required this.itemTitle,
       @required this.category,
-      @required this.quantity});
+      @required this.quantity,
+      @required this.measure});
   String? itemTitle;
   String? category;
   int? quantity;
+  String? measure;
 
   @override
   _SwipableInventoryCardState createState() => _SwipableInventoryCardState(
-      itemTitle: itemTitle, category: category, quantity: quantity);
+      itemTitle: itemTitle,
+      category: category,
+      quantity: quantity,
+      measure: measure);
 }
 
 class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
   @override
-  _SwipableInventoryCardState({this.itemTitle, this.category, this.quantity});
+  _SwipableInventoryCardState(
+      {this.itemTitle, this.category, this.quantity, this.measure});
 
   String? itemTitle;
   String? category;
   int? quantity;
+  String? measure;
 
   Widget build(BuildContext context) {
     return Container(
@@ -111,9 +118,9 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
                                   ),
                                 ),
                                 Text(
-                                  'Quantity',
+                                  measure ?? "",
                                   style: TextStyle(
-                                    color: kGrayHeading,
+                                    color: kGrayButton,
                                     fontSize: 12.0,
                                     fontFamily: 'Montserrat-SemiBold',
                                   ),
