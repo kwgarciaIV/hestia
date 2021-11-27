@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hestia/Components/AddTaskPopUp.dart';
 import 'package:hestia/constants.dart';
+import 'package:hestia/Model/task.dart';
+import 'package:hestia/Database/task_database.dart';
 
 class SwipableTaskCard extends StatefulWidget {
-  SwipableTaskCard({this.taskTitle, this.taskType, this.taskDesc});
+  final Task task;
+  final int index;
 
-  String? taskTitle;
-  String? taskType;
-  String? taskDesc;
+  const SwipableTaskCard({
+    Key? key,
+    required this.task,
+    required this.index,
+  }) : super(key: key);
+
   @override
-  _SwipableTaskCardState createState() => _SwipableTaskCardState(
-      taskTitle: taskTitle, taskType: taskType, taskDesc: taskDesc);
+  _SwipableTaskCardState createState() =>
+      _SwipableTaskCardState(task: task, index: index);
 }
 
 class _SwipableTaskCardState extends State<SwipableTaskCard> {
-  _SwipableTaskCardState({this.taskTitle, this.taskType, this.taskDesc});
-  String? taskTitle;
-  String? taskType;
-  String? taskDesc;
+  _SwipableTaskCardState({required this.task, required this.index});
+  final Task task;
+  final int index;
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +33,7 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
       margin: EdgeInsets.only(bottom: 10),
       child: Slidable(
         // Specify a key if the Slidable is dismissible.
-        key: const ValueKey(0),
+        key: Key(task.toString()),
 
         // The start action pane is the one at the left or the top side.
         endActionPane: ActionPane(
@@ -33,7 +41,13 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
 
           // A pane can dismiss the Slidable.
           motion: ScrollMotion(),
-          dismissible: DismissiblePane(onDismissed: () {}),
+          dismissible: DismissiblePane(
+            onDismissed: () async {
+              await TaskDatabase.instance.delete(task.taskID!);
+              //await TaskDatabase.instance.deleteAll();
+              //Navigator.of(context).pop();
+            },
+          ),
           children: const [
             SlidableAction(
               onPressed: doNothing,
@@ -45,7 +59,7 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
           ],
         ),
 
-        startActionPane: ActionPane(
+        /*       startActionPane: ActionPane(
           motion: const BehindMotion(),
           children: [
             SlidableAction(
@@ -56,7 +70,7 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
               label: 'Edit',
             ),
           ],
-        ),
+        ),*/
 
         child: Container(
           color: Colors.white,
@@ -74,9 +88,10 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
                         text: new TextSpan(
                           style: new TextStyle(),
                           children: <TextSpan>[
-                            new TextSpan(text: taskTitle, style: kCardTitle),
                             new TextSpan(
-                              text: taskType,
+                                text: task.taskTitle + '\t', style: kCardTitle),
+                            new TextSpan(
+                              text: task.taskCategory,
                               style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: 'Poppins-Bold',
@@ -86,13 +101,26 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
                           ],
                         ),
                       ),
-                      Text(taskDesc ?? "null", style: kCardDesc),
+                      Text(task.taskDescription, style: kCardDesc),
                     ],
                   ),
-                  Icon(
-                    Icons.more_vert,
-                    size: 30,
-                    color: Color(0xFF959595),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddTaskPopUp();
+                        },
+                      );
+                    },
+                    child: Icon(
+                      Icons.more_vert,
+                      size: 30,
+                      color: Color(0xFF959595),
+                    ),
                   ),
                 ],
               ),

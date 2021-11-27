@@ -32,6 +32,7 @@ class _BottomActionState extends State<BottomAction> {
               flex: 6,
               child: GestureDetector(
                 onTap: () {
+                  print('Add task');
                   showModalBottomSheet(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),

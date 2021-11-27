@@ -2,12 +2,12 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:hestia/Model/task.dart';
 
-class TasksDatabase {
-  static final TasksDatabase instance = TasksDatabase._init();
+class TaskDatabase {
+  static final TaskDatabase instance = TaskDatabase._init();
 
   static Database? _database;
 
-  TasksDatabase._init();
+  TaskDatabase._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -57,7 +57,7 @@ class TasksDatabase {
     }
   }
 
-  Future<List<Task>> readAllNotes() async {
+  Future<List<Task>> readAllTasks() async {
     final db = await instance.database;
 
     final orderBy = '${TaskFields.taskCategory} ASC';
@@ -80,11 +80,18 @@ class TasksDatabase {
   Future<int> delete(int id) async {
     final db = await instance.database;
 
-    return await db.delete(
-      tableTask,
+    return await db
+        .rawDelete('DELETE FROM $tableTask WHERE ${TaskFields.taskID} = $id');
+
+    /*    tableTask,
       where: '${TaskFields.taskID} = ?',
-      whereArgs: [id],
-    );
+      whereArgs: [id],*/
+  }
+
+  Future<int> deleteAll() async {
+    final db = await instance.database;
+
+    return await db.rawDelete('DELETE FROM $tableTask');
   }
 
   Future close() async {

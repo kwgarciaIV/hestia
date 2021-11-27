@@ -9,12 +9,13 @@ import '../Components/NavigationBar.dart';
 import '../Components/NotificationCard.dart';
 import '../Components/SwipableTaskCard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hestia/Model/task.dart';
+import 'package:hestia/Database/task_database.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-//Klee Comments
 //No NavBar button
 //Cards not dismissive, still not a component
 //Bottom NavBar no functionality
-//Username still not passed
 
 enum SelectedTab { add, home, weekly, inventory }
 
@@ -25,6 +26,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var selectedTab = SelectedTab.home;
+  late List<Task> task;
+  bool isLoading = false;
 
   void handleIndexChanged(int i) {
     setState(() {
@@ -36,7 +39,24 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
+
+    refreshTask();
     getData();
+  }
+
+  void dispose() {
+    TaskDatabase.instance.close();
+
+    super.dispose();
+  }
+
+  Future refreshTask() async {
+    setState(() => isLoading = true);
+
+    this.task = await TaskDatabase.instance.readAllTasks();
+
+    setState(() => isLoading = false);
   }
 
   getData() async {
@@ -126,25 +146,15 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 10,
                       ),
-                      SwipableTaskCard(
-                        taskTitle: 'Lorem Ipsum' + '\t',
-                        taskType: 'Task Type 2',
-                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
-                      ),
-                      SwipableTaskCard(
-                        taskTitle: 'Lorem Ipsum' + '\t',
-                        taskType: 'Task Type',
-                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
-                      ),
-                      SwipableTaskCard(
-                        taskTitle: 'Lorem Ipsum' + '\t',
-                        taskType: 'Task Type',
-                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
-                      ),
-                      SwipableTaskCard(
-                        taskTitle: 'Lorem Ipsum' + '\t',
-                        taskType: 'Task Type',
-                        taskDesc: 'Lorem ipsum dolor sit amet, consectetur ',
+                      Center(
+                        child: isLoading
+                            ? CircularProgressIndicator()
+                            : task.isEmpty
+                                ? Text('No Tasks', style: kLabelInputField)
+                                : buildTask(),
+                        //Text(
+                        //  'Task Length: ' + task.length.toString(),
+                        //style: kLabelInputField)
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -168,4 +178,21 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Widget buildTask() => StaggeredGridView.countBuilder(
+        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+        crossAxisCount: 1,
+        itemCount: task.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          final tasks = task[index];
+
+          return GestureDetector(
+            onTap: () {},
+            child: Expanded(
+              child: SwipableTaskCard(task: tasks, index: index),
+            ),
+          );
+        },
+      );
 }
