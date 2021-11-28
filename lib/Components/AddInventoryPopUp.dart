@@ -4,6 +4,7 @@ import 'package:hestia/constants.dart';
 import 'package:hestia/Database/inventory_database.dart';
 import 'package:hestia/Model/inventory.dart';
 import 'package:flutter/services.dart';
+import 'package:hestia/Screens/InventoryPage.dart';
 
 class AddInventoryPopUp extends StatefulWidget {
   final Inventory? inventory;
@@ -356,7 +357,10 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
         await addInventory();
       }
 
-      Navigator.of(context).pop();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => InventoryPage()),
+      );
     }
   }
 }

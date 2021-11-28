@@ -13,6 +13,7 @@ import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+
 //No NavBar button
 //Cards not dismissive, still not a component
 //Bottom NavBar no functionality

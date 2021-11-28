@@ -46,7 +46,28 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
             ),
           ],
         ),
+        /*    endActionPane: ActionPane(
+          // A motion is a widget used to control how the pane animates.
 
+          // A pane can dismiss the Slidable.
+          motion: ScrollMotion(),
+          dismissible: DismissiblePane(
+            onDismissed: () async {
+              await InventoryDatabase.instance.delete(inventory.inventoryID!);
+              //await TaskDatabase.instance.deleteAll();
+              //Navigator.of(context).pop();
+            },
+          ),
+          children: const [
+            SlidableAction(
+              onPressed: doNothing,
+              backgroundColor: Color(0xFF9AB6B4),
+              foregroundColor: Colors.white,
+              icon: Icons.delete_outline_rounded,
+              label: 'Delete',
+            ),
+          ],
+        ),*/
         endActionPane: ActionPane(
           motion: const BehindMotion(),
           children: [

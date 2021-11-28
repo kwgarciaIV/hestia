@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'AddTaskPopUp.dart';
+import 'package:page_transition/page_transition.dart';
 
 class BottomAction extends StatefulWidget {
   const BottomAction({Key? key}) : super(key: key);
@@ -33,7 +34,14 @@ class _BottomActionState extends State<BottomAction> {
               child: GestureDetector(
                 onTap: () {
                   print('Add task');
-                  showModalBottomSheet(
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: AddTaskPopUp(),
+                    ),
+                  );
+                  /* showModalBottomSheet(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -41,7 +49,7 @@ class _BottomActionState extends State<BottomAction> {
                     builder: (BuildContext context) {
                       return AddTaskPopUp();
                     },
-                  );
+                  );*/
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 5, right: 10),
