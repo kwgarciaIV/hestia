@@ -8,6 +8,9 @@ import '../Components/NavigationBar.dart';
 import 'package:hestia/Components/BottomActions.dart';
 import '../Components/SwipableInventoryCard.dart';
 import 'package:hestia/Components/AddInventoryPopUp.dart';
+import 'package:hestia/Database/inventory_database.dart';
+import 'package:hestia/Model/inventory.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({Key? key}) : super(key: key);
@@ -17,6 +20,24 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPageState extends State<InventoryPage> {
+  late List<Inventory> inventory;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    refreshTask();
+  }
+
+  Future refreshTask() async {
+    setState(() => isLoading = true);
+
+    this.inventory = await InventoryDatabase.instance.readAllInventory();
+
+    setState(() => isLoading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -90,6 +111,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                 backgroundColor: Colors.white,
                                 onPressed: () {
                                   showModalBottomSheet(
+                                      isScrollControlled: true,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(30.0),
@@ -107,24 +129,16 @@ class _InventoryPageState extends State<InventoryPage> {
                     )),
                 Container(
                   padding: new EdgeInsets.fromLTRB(30, 20, 30, 30),
-                  child: Column(
-                    children: [
-                      SwipableInventoryCard(
-                          itemTitle: 'Lorem Ipsum',
-                          quantity: 12,
-                          category: 'eheheh',
-                          measure: 'kg'),
-                      SwipableInventoryCard(
-                          itemTitle: 'Lorem Ipsum',
-                          quantity: 10,
-                          category: 'eheheh',
-                          measure: 'g'),
-                      SwipableInventoryCard(
-                          itemTitle: 'Lorem Ipsum',
-                          quantity: 00,
-                          category: 'eheheh',
-                          measure: 'bottles'),
-                    ],
+                  child: Center(
+                    child: isLoading
+                        ? CircularProgressIndicator()
+                        : inventory.isEmpty
+                            ? Text('No Items', style: kLabelInputField)
+                            : buildInventory(),
+                    // Text(
+                    //   'Items Length: ' +
+                    //     inventory.length.toString(),
+                    //                  style: kLabelInputField),
                   ),
                 ),
               ],
@@ -135,4 +149,22 @@ class _InventoryPageState extends State<InventoryPage> {
       ),
     );
   }
+
+  Widget buildInventory() => StaggeredGridView.countBuilder(
+        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+        crossAxisCount: 1,
+        itemCount: inventory.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          final inventories = inventory[index];
+
+          return GestureDetector(
+            onTap: () {},
+            child: Expanded(
+              child:
+                  SwipableInventoryCard(inventory: inventories, index: index),
+            ),
+          );
+        },
+      );
 }

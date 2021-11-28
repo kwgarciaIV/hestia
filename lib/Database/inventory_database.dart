@@ -26,7 +26,7 @@ class InventoryDatabase {
   Future _createDB(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     final textType = 'TEXT NOT NULL';
-    final intType = 'INT NOT NULL';
+    final intType = 'INTEGER NOT NULL';
 
     await db.execute('''CREATE TABLE $tableInventory(
         ${InventoryFields.inventoryID} $idType,

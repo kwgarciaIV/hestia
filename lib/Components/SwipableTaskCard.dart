@@ -107,6 +107,7 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
                   GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
+                        // isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),

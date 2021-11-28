@@ -1,35 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hestia/constants.dart';
+import 'package:hestia/Model/inventory.dart';
 
 class SwipableInventoryCard extends StatefulWidget {
-  SwipableInventoryCard(
-      {@required this.itemTitle,
-      @required this.category,
-      @required this.quantity,
-      @required this.measure});
-  String? itemTitle;
-  String? category;
-  int? quantity;
-  String? measure;
+  final Inventory inventory;
+  final int index;
+
+  const SwipableInventoryCard(
+      {Key? key, required this.inventory, required this.index})
+      : super(key: key);
 
   @override
-  _SwipableInventoryCardState createState() => _SwipableInventoryCardState(
-      itemTitle: itemTitle,
-      category: category,
-      quantity: quantity,
-      measure: measure);
+  _SwipableInventoryCardState createState() =>
+      _SwipableInventoryCardState(inventory: inventory, index: index);
 }
 
 class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
   @override
-  _SwipableInventoryCardState(
-      {this.itemTitle, this.category, this.quantity, this.measure});
+  _SwipableInventoryCardState({required this.inventory, required this.index});
 
-  String? itemTitle;
-  String? category;
-  int? quantity;
-  String? measure;
+  final Inventory inventory;
+  final int index;
 
   Widget build(BuildContext context) {
     return Container(
@@ -87,7 +79,7 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 5),
                             child: Text(
-                              itemTitle ?? "Null",
+                              inventory.inventoryTitle,
                               style: TextStyle(
                                 color: kVeryDarkGreen,
                                 fontSize: 25.0,
@@ -95,11 +87,8 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
                               ),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 30),
-                            color: kGrayButton,
-                          )
+                          Text(inventory.inventoryCategory,
+                              style: kLabelInputField)
                         ],
                       ),
                       Row(
@@ -110,7 +99,7 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
                             child: Column(
                               children: [
                                 Text(
-                                  quantity.toString(),
+                                  inventory.inventoryQuantity.toString(),
                                   style: TextStyle(
                                     color: kVeryDarkGreen,
                                     fontSize: 40.0,
@@ -118,7 +107,7 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
                                   ),
                                 ),
                                 Text(
-                                  measure ?? "",
+                                  inventory.inventoryMeasure,
                                   style: TextStyle(
                                     color: kGrayButton,
                                     fontSize: 12.0,

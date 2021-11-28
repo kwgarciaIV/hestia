@@ -1,17 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
+import 'package:hestia/Database/inventory_database.dart';
+import 'package:hestia/Model/inventory.dart';
+import 'package:flutter/services.dart';
 
 class AddInventoryPopUp extends StatefulWidget {
-  const AddInventoryPopUp({Key? key}) : super(key: key);
+  final Inventory? inventory;
+
+  const AddInventoryPopUp({Key? key, this.inventory}) : super(key: key);
 
   @override
   _AddInventoryPopUpState createState() => _AddInventoryPopUpState();
 }
 
 class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
-  String dropDownValue1 = '';
-  String dropDownValue2 = '';
+  String valueInventoryMeasure = '';
+  String valueInventoryCategory = '';
+
+  final _formInventoryKey = GlobalKey<FormState>();
+
+  late int? inventoryID;
+  late String inventoryTitle;
+  late String inventoryCategory;
+  late int inventoryQuantity;
+  late String inventoryMeasure;
+
+  final valueInventoryTitle = TextEditingController();
+  final valueInventoryQuantity = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    inventoryID = widget.inventory?.inventoryID ?? 0;
+    inventoryTitle = widget.inventory?.inventoryTitle ?? '';
+    inventoryCategory = widget.inventory?.inventoryCategory ?? '';
+    inventoryQuantity = widget.inventory?.inventoryQuantity ?? 0;
+    inventoryMeasure = widget.inventory?.inventoryMeasure ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,250 +50,313 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
           topRight: Radius.circular(30),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 20.0),
-          Center(
+      child: Form(
+        key: _formInventoryKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 20.0),
+            Center(
+                child: Text(
+              'Save Item',
+              style: TextStyle(
+                fontFamily: 'Montserrat-Bold',
+                fontSize: 20.0,
+                color: kVeryDarkGreen,
+              ),
+            )),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
               child: Text(
-            'Add Item',
-            style: TextStyle(
-              fontFamily: 'Montserrat-Bold',
-              fontSize: 20.0,
-              color: kVeryDarkGreen,
-            ),
-          )),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
-            child: Text(
-              'Item Name',
-              style: kLabelInputField,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                filled: true,
-                fillColor: kGrayTextField,
-                hintText: 'Enter Item',
-                hintStyle: kHintTextStyle,
+                'Item Name',
+                style: kLabelInputField,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
-            child: Text(
-              'Item Quantity',
-              style: kLabelInputField,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                filled: true,
-                fillColor: kGrayTextField,
-                hintText: 'Enter Initial Item Quantity',
-                hintStyle: kHintTextStyle,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
-            child: Text(
-              'Unit of Measure',
-              style: kLabelInputField,
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-          //   child: TextField(
-          //     decoration: InputDecoration(
-          //       border: InputBorder.none,
-          //       filled: true,
-          //       fillColor: kGrayTextField,
-          //       hintText: 'Enter Task Category',
-          //       hintStyle: kHintTextStyle,
-          //     ),
-          //   ),
-          // ),
-          Container(
-            color: Colors.white,
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            child: Padding(
+            Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-              child: DropdownButton(
-                //buttonstyle: ButtonStyle(),
-                hint: dropDownValue1 == ''
-                    ? Text('Choose Unit of Measure')
-                    : Text(
-                        dropDownValue1,
-                        style: dropDownValue1 == ''
-                            ? kHintTextStyle
-                            : kInputTextStyle,
-                      ),
-                isExpanded: true,
-                focusColor: Colors.white,
-                iconSize: 30.0,
-                style: dropDownValue1 == '' ? kHintTextStyle : kInputTextStyle,
-                items: [
-                  'Pieces',
-                  'Box',
-                  'Pack',
-                  'Grams (g)',
-                  'Kilograms (kg)',
-                ].map(
-                  (val) {
-                    return DropdownMenuItem<String>(
-                      value: val,
-                      child: Text(val),
-                    );
-                  },
-                ).toList(),
-                onChanged: (val) {
-                  setState(
-                    () {
-                      dropDownValue1 = val.toString();
-                    },
-                  );
-                },
+              child: TextFormField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    filled: true,
+                    fillColor: kGrayTextField,
+                    hintText: 'Enter Item',
+                    hintStyle: kHintTextStyle,
+                  ),
+                  controller: valueInventoryTitle,
+                  validator: (valueInventoryName) {
+                    if (valueInventoryName == null ||
+                        valueInventoryName.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  }),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
+              child: Text(
+                'Item Quantity',
+                style: kLabelInputField,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
-            child: Text(
-              'Category',
-              style: kLabelInputField,
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-          //   child: TextField(
-          //     decoration: InputDecoration(
-          //       border: InputBorder.none,
-          //       filled: true,
-          //       fillColor: kGrayTextField,
-          //       hintText: 'Enter Task Category',
-          //       hintStyle: kHintTextStyle,
-          //     ),
-          //   ),
-          // ),
-          Container(
-            color: Colors.white,
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            child: Padding(
+            Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-              child: DropdownButton(
-                //buttonstyle: ButtonStyle(),
-                hint: dropDownValue2 == ''
-                    ? Text('Choose Item Category')
-                    : Text(
-                        dropDownValue2,
-                        style: dropDownValue2 == ''
-                            ? kHintTextStyle
-                            : kInputTextStyle,
-                      ),
-                isExpanded: true,
-                focusColor: Colors.white,
-                iconSize: 30.0,
-                style: dropDownValue2 == '' ? kHintTextStyle : kInputTextStyle,
-                items: [
-                  'Beverages',
-                  'Bread & Pastry',
-                  'Breakfast & Cereal',
-                  'Canned Goods & Soups',
-                  'Condiments',
-                  'Snacks & Candy',
-                  'Dairy',
-                  'Fruits & Vegetables',
-                  'Pasta',
-                  'Frozen Meat & Seafood',
-                  'Miscellaneous',
-                  'Paper Products',
-                  'Cleaning Supplies',
-                  'Health',
-                  'Pet Care',
-                  'Miscellaneous'
-                ].map(
-                  (val) {
-                    return DropdownMenuItem<String>(
-                      value: val,
-                      child: Text(val),
-                    );
-                  },
-                ).toList(),
-                onChanged: (val) {
-                  setState(
-                    () {
-                      dropDownValue2 = val.toString();
-                    },
-                  );
-                },
+              child: TextFormField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    filled: true,
+                    fillColor: kGrayTextField,
+                    hintText: 'Enter Initial Item Quantity',
+                    hintStyle: kHintTextStyle,
+                  ),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  controller: valueInventoryQuantity,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  validator: (valueInventoryQuantity) {
+                    if (valueInventoryQuantity == null ||
+                        valueInventoryQuantity.isEmpty) {
+                      return 'Please enter some text';
+                    } else
+                      return null;
+                  }),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
+              child: Text(
+                'Unit of Measure',
+                style: kLabelInputField,
               ),
             ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                //"Back" Button
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context, AddInventoryPopUp());
+            Container(
+              color: Colors.white,
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+                child:
+                    FormField<String>(builder: (FormFieldState<String> state) {
+                  return DropdownButtonFormField(
+                    hint: valueInventoryMeasure == ''
+                        ? Text('Choose Unit of Measure')
+                        : Text(
+                            valueInventoryMeasure,
+                            style: valueInventoryMeasure == ''
+                                ? kHintTextStyle
+                                : kInputTextStyle,
+                          ),
+                    isExpanded: true,
+                    focusColor: Colors.white,
+                    iconSize: 30.0,
+                    style: valueInventoryMeasure == ''
+                        ? kHintTextStyle
+                        : kInputTextStyle,
+                    items: [
+                      'Pieces',
+                      'Box',
+                      'Pack',
+                      'Grams (g)',
+                      'Kilograms (kg)',
+                    ].map(
+                      (val) {
+                        return DropdownMenuItem<String>(
+                          value: val,
+                          child: Text(val),
+                        );
+                      },
+                    ).toList(),
+                    validator: (val) =>
+                        val == null ? 'Select category <3' : null,
+                    onChanged: (val) {
+                      setState(
+                        () {
+                          valueInventoryMeasure = val.toString();
+                        },
+                      );
+                    },
+                  );
+                }),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
+              child: Text(
+                'Category',
+                style: kLabelInputField,
+              ),
+            ),
+            Container(
+              color: Colors.white,
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+                child: FormField<String>(
+                  builder: (FormFieldState<String> state) {
+                    return DropdownButtonFormField(
+                      hint: valueInventoryCategory == ''
+                          ? Text('Choose Item Category')
+                          : Text(
+                              valueInventoryCategory,
+                              style: valueInventoryCategory == ''
+                                  ? kHintTextStyle
+                                  : kInputTextStyle,
+                            ),
+                      isExpanded: true,
+                      focusColor: Colors.white,
+                      iconSize: 30.0,
+                      style: valueInventoryCategory == ''
+                          ? kHintTextStyle
+                          : kInputTextStyle,
+                      items: [
+                        'Beverages',
+                        'Bread & Pastry',
+                        'Breakfast & Cereal',
+                        'Canned Goods & Soups',
+                        'Condiments',
+                        'Snacks & Candy',
+                        'Dairy',
+                        'Fruits & Vegetables',
+                        'Pasta',
+                        'Frozen Meat & Seafood',
+                        'Miscellaneous',
+                        'Paper Products',
+                        'Cleaning Supplies',
+                        'Health',
+                        'Pet Care',
+                        'Miscellaneous'
+                      ].map(
+                        (val) {
+                          return DropdownMenuItem<String>(
+                            value: val,
+                            child: Text(val),
+                          );
+                        },
+                      ).toList(),
+                      validator: (val) =>
+                          val == null ? 'Select category <3' : null,
+                      onChanged: (val) {
+                        setState(
+                          () {
+                            valueInventoryCategory = val.toString();
+                          },
+                        );
+                      },
+                    );
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: kGrayButton,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5.0, horizontal: 40.0),
-                      child: Text(
-                        'Back',
-                        style: TextStyle(
-                            fontFamily: 'Montserrat-SemiBold',
-                            fontSize: 15.0,
-                            color: Colors.white),
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  //"Back" Button
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context, AddInventoryPopUp());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kGrayButton,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5.0, horizontal: 40.0),
+                        child: Text(
+                          'Back',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat-SemiBold',
+                              fontSize: 15.0,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-                //"Add Task" Button
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: kMainDarkGreen,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5.0, horizontal: 40.0),
-                      child: Text(
-                        'Add Task',
-                        style: TextStyle(
-                            fontFamily: 'Montserrat-SemiBold',
-                            fontSize: 15.0,
-                            color: Colors.white),
+                  //"Add Task" Button
+                  GestureDetector(
+                    onTap: () {
+                      print('save button pressed');
+                      if (_formInventoryKey.currentState!.validate()) {
+                        addOrUpdateInventory();
+                        print(valueInventoryTitle.text.toString());
+                        print(valueInventoryQuantity.text.toString());
+                        print(valueInventoryMeasure.toString());
+                        print(valueInventoryCategory.toString());
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kMainDarkGreen,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5.0, horizontal: 40.0),
+                        child: Text(
+                          'Add Item',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat-SemiBold',
+                              fontSize: 15.0,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  Future updateInventory() async {
+    final inventory = widget.inventory!.copy(
+      inventoryTitle: valueInventoryTitle.text.toString(),
+      inventoryQuantity: int.parse(valueInventoryQuantity.text),
+      inventoryCategory: valueInventoryCategory.toString(),
+      inventoryMeasure: valueInventoryMeasure.toString(),
+    );
+
+    await InventoryDatabase.instance.update(inventory);
+  }
+
+  Future addInventory() async {
+    final inventory = Inventory(
+      inventoryTitle: valueInventoryTitle.text.toString(),
+      inventoryQuantity: int.parse(valueInventoryQuantity.text),
+      inventoryCategory: valueInventoryCategory.toString(),
+      inventoryMeasure: valueInventoryMeasure.toString(),
+    );
+
+    await InventoryDatabase.instance.create(inventory);
+  }
+
+  void addOrUpdateInventory() async {
+    final isValid = _formInventoryKey.currentState!.validate();
+
+    if (isValid) {
+      final isUpdating = widget.inventory != null;
+
+      if (isUpdating) {
+        await updateInventory();
+      } else {
+        await addInventory();
+      }
+
+      Navigator.of(context).pop();
+    }
   }
 }

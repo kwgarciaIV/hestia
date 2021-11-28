@@ -46,19 +46,19 @@ const kTitle = TextStyle(
 
 const kCardTitle = TextStyle(
   fontFamily: 'Poppins-Bold',
-  fontSize: 21,
+  fontSize: 23,
   color: kVeryDarkGreen,
 );
 
 const kCardCateg = TextStyle(
   fontFamily: 'Poppins-SemiBold',
-  fontSize: 14,
+  fontSize: 15,
   color: kGrayButton,
 );
 
 const kCardDesc = TextStyle(
   fontFamily: 'Montserrat-SemiBold',
-  fontSize: 12,
+  fontSize: 14,
 );
 
 const kLabelInputField = TextStyle(

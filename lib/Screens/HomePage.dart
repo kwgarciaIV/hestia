@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     String display() {
       if (displayName != null)
-        return "Hi $displayName !";
+        return "Hi $displayName!";
       else
         return "Hi!";
     }
