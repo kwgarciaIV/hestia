@@ -110,16 +110,13 @@ class _InventoryPageState extends State<InventoryPage> {
                                     )),
                                 backgroundColor: Colors.white,
                                 onPressed: () {
-                                  showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
-                                      ),
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AddInventoryPopUp();
-                                      });
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: AddInventoryPopUp(),
+                                    ),
+                                  );
                                 },
                               ),
                             ),
@@ -135,10 +132,6 @@ class _InventoryPageState extends State<InventoryPage> {
                         : inventory.isEmpty
                             ? Text('No Items', style: kLabelInputField)
                             : buildInventory(),
-                    // Text(
-                    //   'Items Length: ' +
-                    //     inventory.length.toString(),
-                    //                  style: kLabelInputField),
                   ),
                 ),
               ],
@@ -155,6 +148,7 @@ class _InventoryPageState extends State<InventoryPage> {
         crossAxisCount: 1,
         itemCount: inventory.length,
         shrinkWrap: true,
+        mainAxisSpacing: 10,
         itemBuilder: (context, index) {
           final inventories = inventory[index];
 

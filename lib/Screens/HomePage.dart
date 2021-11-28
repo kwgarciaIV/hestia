@@ -13,7 +13,6 @@ import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-
 //No NavBar button
 //Cards not dismissive, still not a component
 //Bottom NavBar no functionality
@@ -183,6 +182,7 @@ class _HomePageState extends State<HomePage> {
   Widget buildTask() => StaggeredGridView.countBuilder(
         staggeredTileBuilder: (index) => StaggeredTile.fit(1),
         crossAxisCount: 1,
+        mainAxisSpacing: 10,
         itemCount: task.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {

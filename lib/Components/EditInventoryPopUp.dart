@@ -6,26 +6,26 @@ import 'package:hestia/Model/inventory.dart';
 import 'package:flutter/services.dart';
 import 'package:hestia/Screens/InventoryPage.dart';
 
-class AddInventoryPopUp extends StatefulWidget {
-  final Inventory? inventory;
+class EditInventoryPopUp extends StatefulWidget {
+  final Inventory inventory;
 
-  const AddInventoryPopUp({Key? key, this.inventory}) : super(key: key);
+  const EditInventoryPopUp({Key? key, required this.inventory})
+      : super(key: key);
 
   @override
-  _AddInventoryPopUpState createState() => _AddInventoryPopUpState();
+  _EditInventoryPopUpState createState() =>
+      _EditInventoryPopUpState(inventory: inventory);
 }
 
-class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
+class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
+  _EditInventoryPopUpState({required this.inventory});
+
+  final Inventory inventory;
+
   String valueInventoryMeasure = '';
   String valueInventoryCategory = '';
 
   final _formInventoryKey = GlobalKey<FormState>();
-
-  late int? inventoryID;
-  late String inventoryTitle;
-  late String inventoryCategory;
-  late int inventoryQuantity;
-  late String inventoryMeasure;
 
   final valueInventoryTitle = TextEditingController();
   final valueInventoryQuantity = TextEditingController();
@@ -33,12 +33,6 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
   @override
   void initState() {
     super.initState();
-
-    inventoryID = widget.inventory?.inventoryID ?? 0;
-    inventoryTitle = widget.inventory?.inventoryTitle ?? '';
-    inventoryCategory = widget.inventory?.inventoryCategory ?? '';
-    inventoryQuantity = widget.inventory?.inventoryQuantity ?? 0;
-    inventoryMeasure = widget.inventory?.inventoryMeasure ?? '';
   }
 
   @override
@@ -59,7 +53,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                   padding: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Center(
                       child: Text(
-                    'Save Item',
+                    'Edit Item',
                     style: kTitlePopUp,
                   )),
                 ),
@@ -79,7 +73,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                         border: InputBorder.none,
                         filled: true,
                         fillColor: kGrayTextField,
-                        hintText: 'Enter Item',
+                        hintText: inventory.inventoryTitle,
                         hintStyle: kHintTextStyle,
                       ),
                       controller: valueInventoryTitle,
@@ -107,7 +101,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                         border: InputBorder.none,
                         filled: true,
                         fillColor: kGrayTextField,
-                        hintText: 'Enter Initial Item Quantity',
+                        hintText: inventory.inventoryQuantity.toString(),
                         hintStyle: kHintTextStyle,
                       ),
                       keyboardType:
@@ -274,7 +268,12 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
             //"Back" Button
             GestureDetector(
               onTap: () {
-                Navigator.pop(context, AddInventoryPopUp());
+                Navigator.pop(
+                  context,
+                  EditInventoryPopUp(
+                    inventory: inventory,
+                  ),
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -313,7 +312,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 17.0, horizontal: 40.0),
                   child: Text(
-                    'Add Item',
+                    'Save Item',
                     style: kButtonSaveBack,
                   ),
                 ),
@@ -326,7 +325,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
   }
 
   Future updateInventory() async {
-    final inventory = widget.inventory!.copy(
+    final inventory = widget.inventory.copy(
       inventoryTitle: valueInventoryTitle.text.toString(),
       inventoryQuantity: int.parse(valueInventoryQuantity.text),
       inventoryCategory: valueInventoryCategory.toString(),

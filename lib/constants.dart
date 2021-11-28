@@ -44,33 +44,58 @@ const kTitle = TextStyle(
   color: kVeryDarkGreen,
 );
 
-const kCardTitle = TextStyle(
+const kTaskCardTitle = TextStyle(
   fontFamily: 'Poppins-Bold',
   fontSize: 23,
   color: kVeryDarkGreen,
 );
 
-const kCardCateg = TextStyle(
+const kTaskCardCateg = TextStyle(
   fontFamily: 'Poppins-SemiBold',
   fontSize: 15,
   color: kGrayButton,
 );
 
-const kCardDesc = TextStyle(
+const kTaskCardDesc = TextStyle(
   fontFamily: 'Montserrat-SemiBold',
   fontSize: 14,
 );
 
+const kInventoryCardTitle = TextStyle(
+  color: kVeryDarkGreen,
+  fontSize: 25.0,
+  fontFamily: 'Poppins-Bold',
+);
+
+const kInventoryCardQuantity = TextStyle(
+  color: kVeryDarkGreen,
+  fontSize: 40.0,
+  fontFamily: 'Montserrat-Bold',
+);
+
+const kInventoryCardMeasure = TextStyle(
+  color: kGrayButton,
+  fontSize: 12.0,
+  fontFamily: 'Montserrat-SemiBold',
+);
+
 const kLabelInputField = TextStyle(
-    fontFamily: 'Montserrat-SemiBold',
-    fontSize: 15.0,
-    color: Color(0xFF57706F));
+    fontFamily: 'Montserrat-Bold', fontSize: 17.0, color: Color(0xFF57706F));
 
 const kHintTextStyle = TextStyle(
-    fontSize: 15,
+    fontSize: 16,
     color: kGrayButton,
     fontStyle: FontStyle.italic,
     fontFamily: 'Montserrat-Medium');
 
 const kInputTextStyle = TextStyle(
-    color: Colors.black, fontSize: 15.0, fontFamily: 'Montserrat-SemiBold');
+    color: Colors.black, fontSize: 16.0, fontFamily: 'Montserrat-SemiBold');
+
+const kButtonSaveBack = TextStyle(
+    fontFamily: 'Montserrat-SemiBold', fontSize: 17.0, color: Colors.white);
+
+const kTitlePopUp = TextStyle(
+  fontFamily: 'Poppins-Bold',
+  fontSize: 25.0,
+  color: kVeryDarkGreen,
+);

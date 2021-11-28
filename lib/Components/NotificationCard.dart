@@ -32,11 +32,11 @@ class NotificationCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: kCardTitle,
+                  style: kTaskCardTitle,
                 ),
                 Text(
                   categ,
-                  style: kCardCateg,
+                  style: kTaskCardCateg,
                 )
               ],
             ),
@@ -44,7 +44,7 @@ class NotificationCard extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 desc,
-                style: kCardDesc,
+                style: kTaskCardDesc,
               ),
             ),
           ],

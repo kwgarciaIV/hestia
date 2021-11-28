@@ -87,7 +87,7 @@ class _BottomActionState extends State<BottomAction> {
               flex: 2,
               child: CircleAvatar(
                 child: FaIcon(
-                  FontAwesomeIcons.calendarWeek,
+                  FontAwesomeIcons.boxOpen,
                   color: kOffWhite,
                 ), // Icon widget changed with FaIcon
                 radius: 60.0,
@@ -98,7 +98,7 @@ class _BottomActionState extends State<BottomAction> {
               flex: 2,
               child: CircleAvatar(
                 child: FaIcon(
-                  FontAwesomeIcons.boxOpen,
+                  FontAwesomeIcons.wallet,
                   color: kOffWhite,
                 ), // Icon widget changed with FaIcon
                 radius: 60.0,

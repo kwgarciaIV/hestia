@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Screens/HomePage.dart';
 import '../Screens/InventoryPage.dart';
 
-enum PageSelection { home, calendar, inventory, about, settings }
+enum PageSelection { home, budget, inventory, about, settings }
 
 class NavigationBar extends StatefulWidget {
   NavigationBar({this.selectedPage});
@@ -116,37 +116,6 @@ class _NavigationBarState extends State<NavigationBar> {
                     Container(
                       width: 8.0,
                       height: 50.0,
-                      color: selectedPage == PageSelection.calendar
-                          ? kGold
-                          : kMainDarkGreen,
-                      child: Text(''),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedPage = PageSelection.calendar;
-                        });
-                      },
-                      child: Text(
-                        'Calendar',
-                        textAlign: TextAlign.left,
-                        style: selectedPage == PageSelection.calendar
-                            ? kNavBarTextStylePressed
-                            : kNavBarTextStyle,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.0),
-                //Inventory
-                Row(
-                  children: [
-                    Container(
-                      width: 8.0,
-                      height: 50.0,
                       color: selectedPage == PageSelection.inventory
                           ? kGold
                           : kMainDarkGreen,
@@ -178,7 +147,39 @@ class _NavigationBarState extends State<NavigationBar> {
                     ),
                   ],
                 ),
-                SizedBox(height: 120.0),
+                SizedBox(height: 20.0),
+                //Inventory
+
+                Row(
+                  children: [
+                    Container(
+                      width: 8.0,
+                      height: 50.0,
+                      color: selectedPage == PageSelection.budget
+                          ? kGold
+                          : kMainDarkGreen,
+                      child: Text(''),
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedPage = PageSelection.budget;
+                        });
+                      },
+                      child: Text(
+                        'Budget',
+                        textAlign: TextAlign.left,
+                        style: selectedPage == PageSelection.budget
+                            ? kNavBarTextStylePressed
+                            : kNavBarTextStyle,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.0),
                 //About Us
                 Row(
                   children: [
@@ -210,67 +211,10 @@ class _NavigationBarState extends State<NavigationBar> {
                   ],
                 ),
                 SizedBox(height: 20.0),
-                //Settings
-                Row(
-                  children: [
-                    Container(
-                      width: 8.0,
-                      height: 50.0,
-                      color: selectedPage == PageSelection.settings
-                          ? kGold
-                          : kMainDarkGreen,
-                      child: Text(''),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedPage = PageSelection.settings;
-                        });
-                      },
-                      child: Text(
-                        'Settings',
-                        textAlign: TextAlign.left,
-                        style: selectedPage == PageSelection.settings
-                            ? kNavBarTextStylePressed
-                            : kNavBarTextStyle,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.0),
-                //Log out
-                Row(
-                  children: <Widget>[
-                    SizedBox(width: 22.0),
-                    Icon(
-                      Icons.logout_rounded,
-                      color: kOffWhite,
-                    ),
-                    Text(
-                      'Log-out',
-                      textAlign: TextAlign.left,
-                      style: kNavBarTextStyle,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.0),
-                // Positioned(
-                //   right: 10.0,
-                //   child: Text(
-                //     '© 2021 Tessera',
-                //     style: TextStyle(
-                //       color: Color(0xFF798A89),
-                //       fontFamily: 'Montserrat-Regular',
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
-          Padding(
+/*          Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: Text(
               '© 2021 Tessera',
@@ -280,8 +224,21 @@ class _NavigationBarState extends State<NavigationBar> {
                 fontSize: 20.0,
               ),
             ),
-          ),
+          ),*/
         ],
+      ),
+      bottomNavigationBar: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        child: Text(
+          '© 2021 Tessera',
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            color: Color(0xFF798A89),
+            fontFamily: 'Montserrat-Regular',
+            fontSize: 20.0,
+          ),
+        ),
       ),
     );
   }
