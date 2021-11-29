@@ -76,6 +76,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      maxLength: 15,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,
@@ -104,6 +105,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      maxLength: 2,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,

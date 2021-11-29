@@ -90,9 +90,18 @@ class _BudgetPageState extends State<BudgetPage> {
                       ),
                       Row(
                         children: [
+                          Container(
+                            child: Image.asset(
+                              "images/pesosign.png",
+                              width: 35,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text(
                             // ' ${String.fromCharCode(0x0020B1)} '
-                            'PHP 70,000.00',
+                            '70,000.00',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Colors.white,

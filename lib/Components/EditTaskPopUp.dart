@@ -66,6 +66,7 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    maxLength: 15,
                     scrollPadding: EdgeInsets.only(bottom: 40),
                     decoration: InputDecoration(
                       border: InputBorder.none,

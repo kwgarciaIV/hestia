@@ -71,6 +71,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    maxLength: 15,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       filled: true,

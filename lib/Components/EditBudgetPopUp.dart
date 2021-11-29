@@ -33,6 +33,7 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 60),
@@ -78,6 +79,7 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      maxLength: 15,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,

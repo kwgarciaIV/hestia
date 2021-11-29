@@ -70,6 +70,7 @@ class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      maxLength: 15,
                       scrollPadding: EdgeInsets.only(bottom: 40),
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -99,6 +100,7 @@ class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      maxLength: 2,
                       scrollPadding: EdgeInsets.only(bottom: 40),
                       decoration: InputDecoration(
                         border: InputBorder.none,
