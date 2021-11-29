@@ -78,6 +78,7 @@ class _HomePageState extends State<HomePage> {
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: kOffWhite,
         appBar: AppBar(
           backgroundColor: kMainDarkGreen,

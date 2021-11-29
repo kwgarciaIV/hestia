@@ -34,6 +34,7 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -65,6 +66,7 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    scrollPadding: EdgeInsets.only(bottom: 40),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       filled: true,
@@ -93,6 +95,7 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    scrollPadding: EdgeInsets.only(bottom: 40),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       filled: true,

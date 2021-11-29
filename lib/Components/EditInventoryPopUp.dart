@@ -38,6 +38,7 @@ class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -69,6 +70,7 @@ class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      scrollPadding: EdgeInsets.only(bottom: 40),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,
@@ -97,6 +99,7 @@ class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      scrollPadding: EdgeInsets.only(bottom: 40),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,

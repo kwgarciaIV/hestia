@@ -20,6 +20,9 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPageState extends State<InventoryPage> {
+  _InventoryPageState({this.selectedPage});
+  PageSelection? selectedPage;
+
   late List<Inventory> inventory;
   bool isLoading = false;
 
@@ -43,6 +46,7 @@ class _InventoryPageState extends State<InventoryPage> {
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: kOffWhite,
         appBar: AppBar(
           backgroundColor: kMainDarkGreen,

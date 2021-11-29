@@ -3,6 +3,12 @@ import 'package:hestia/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'AddTaskPopUp.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:hestia/Components/NavigationBar.dart';
+import '../Screens/HomePage.dart';
+import '../Screens/InventoryPage.dart';
+import '../Screens/BudgetPage.dart';
+
+//enum PageSelection1 { home, budget, inventory, about, settings }
 
 class BottomAction extends StatefulWidget {
   const BottomAction({Key? key}) : super(key: key);
@@ -12,6 +18,9 @@ class BottomAction extends StatefulWidget {
 }
 
 class _BottomActionState extends State<BottomAction> {
+  _BottomActionState({this.selectedPage});
+  PageSelection? selectedPage;
+
   @override
   Widget build(BuildContext context) {
     //return _show
@@ -74,35 +83,78 @@ class _BottomActionState extends State<BottomAction> {
             ),
             Expanded(
               flex: 2,
-              child: CircleAvatar(
-                child: FaIcon(
-                  FontAwesomeIcons.home,
-                  color: kOffWhite,
-                ), // Icon widget changed with FaIcon
-                radius: 60.0,
-                backgroundColor: kMainDarkGreen,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedPage = PageSelection.home;
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: HomePage(),
+                      ),
+                    );
+                  });
+                },
+                child: CircleAvatar(
+                  child: FaIcon(
+                    FontAwesomeIcons.home,
+                    color: kOffWhite,
+                  ), // Icon widget changed with FaIcon
+                  radius: 60.0,
+                  backgroundColor: kMainDarkGreen,
+                ),
               ),
             ),
             Expanded(
               flex: 2,
-              child: CircleAvatar(
-                child: FaIcon(
-                  FontAwesomeIcons.boxOpen,
-                  color: kOffWhite,
-                ), // Icon widget changed with FaIcon
-                radius: 60.0,
-                backgroundColor: kMainDarkGreen,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedPage = PageSelection.home;
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: InventoryPage(),
+                      ),
+                    );
+                  });
+                },
+                child: CircleAvatar(
+                  child: FaIcon(
+                    FontAwesomeIcons.boxOpen,
+                    color: kOffWhite,
+                  ), // Icon widget changed with FaIcon
+                  radius: 60.0,
+                  backgroundColor: kMainDarkGreen,
+                ),
               ),
             ),
             Expanded(
               flex: 2,
-              child: CircleAvatar(
-                child: FaIcon(
-                  FontAwesomeIcons.wallet,
-                  color: kOffWhite,
-                ), // Icon widget changed with FaIcon
-                radius: 60.0,
-                backgroundColor: kMainDarkGreen,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedPage = PageSelection.home;
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        //duration: Duration(milliseconds: 300),
+                        child: BudgetPage(),
+                      ),
+                    );
+                  });
+                },
+                child: CircleAvatar(
+                  child: FaIcon(
+                    FontAwesomeIcons.wallet,
+                    color: kOffWhite,
+                  ), // Icon widget changed with FaIcon
+                  radius: 60.0,
+                  backgroundColor: kMainDarkGreen,
+                ),
               ),
             ),
           ],

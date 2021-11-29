@@ -24,6 +24,8 @@ class _BudgetPageState extends State<BudgetPage> {
   late List<Budget> budget;
   bool isLoading = false;
 
+  var myRichRunesMessage = new Runes('\u20b1');
+
   @override
   void initState() {
     super.initState();
@@ -89,7 +91,8 @@ class _BudgetPageState extends State<BudgetPage> {
                       Row(
                         children: [
                           Text(
-                            'PHP. 70,000.00',
+                            // ' ${String.fromCharCode(0x0020B1)} '
+                            'PHP 70,000.00',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Colors.white,

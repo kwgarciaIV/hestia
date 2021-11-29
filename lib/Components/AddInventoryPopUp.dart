@@ -44,6 +44,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
