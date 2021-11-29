@@ -33,7 +33,7 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
       key: const ValueKey(0),
 
       // The start action pane is the one at the left or the top side.
-      startActionPane: ActionPane(
+      /* startActionPane: ActionPane(
         // A motion is a widget used to control how the pane animates.
 
         // A pane can dismiss the Slidable.
@@ -47,7 +47,7 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
             label: 'Add',
           ),
         ],
-      ),
+      ),*/
       endActionPane: ActionPane(
         // A motion is a widget used to control how the pane animates.
 

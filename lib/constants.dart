@@ -99,3 +99,9 @@ const kTitlePopUp = TextStyle(
   fontSize: 25.0,
   color: kVeryDarkGreen,
 );
+
+const kBudgetCardTitle = TextStyle(
+  color: kMainDarkGreen,
+  fontFamily: 'Poppins-Bold',
+  fontSize: 19,
+);

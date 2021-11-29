@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kMainDarkGreen,
-      //resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               style: ElevatedButton.styleFrom(
                 primary: kGold,
-                padding: EdgeInsets.symmetric(horizontal: 130, vertical: 17),
+                padding: EdgeInsets.symmetric(horizontal: 148, vertical: 17),
                 textStyle: TextStyle(fontSize: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10), // <-- Radius

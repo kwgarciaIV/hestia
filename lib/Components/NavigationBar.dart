@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Screens/HomePage.dart';
 import '../Screens/InventoryPage.dart';
+import '../Screens/BudgetPage.dart';
 
 enum PageSelection { home, budget, inventory, about, settings }
 
@@ -168,6 +169,13 @@ class _NavigationBarState extends State<NavigationBar> {
                         setState(() {
                           selectedPage = PageSelection.budget;
                         });
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: BudgetPage(),
+                          ),
+                        );
                       },
                       child: Text(
                         'Budget',
