@@ -4,7 +4,7 @@ import 'package:hestia/constants.dart';
 import 'package:hestia/Model/inventory.dart';
 import 'package:hestia/Database/inventory_database.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:hestia/Components/EditInventoryPopUp.dart';
+import 'package:hestia/Screens/EditInventoryPopUp.dart';
 import 'package:hestia/Screens/InventoryPage.dart';
 
 class SwipableInventoryCard extends StatefulWidget {

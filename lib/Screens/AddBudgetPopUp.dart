@@ -5,6 +5,9 @@ import 'package:hestia/Database/budget_database.dart';
 import 'package:hestia/Model/budget.dart';
 import 'package:flutter/services.dart';
 import 'package:hestia/Screens/BudgetPage.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class AddBudgetPopUp extends StatefulWidget {
   final Budget? budget;
@@ -18,13 +21,22 @@ class AddBudgetPopUp extends StatefulWidget {
 class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
   final _formBudgetKey = GlobalKey<FormState>();
 
+  String error = 'This is required.';
+
   final valueBudgetTitle = TextEditingController();
-  final valueBudgetQuantity = TextEditingController();
+  final valueBudgetQuantity = new MoneyMaskedTextController(
+      precision: 0, decimalSeparator: '', thousandSeparator: ',');
   final valueBudgetDescription = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  String getCurrency() {
+    var format =
+        NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'PHP');
+    return format.currencySymbol;
   }
 
   @override
@@ -77,7 +89,9 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
                       maxLength: 15,
+                      style: kInputTextStyle,
                       decoration: InputDecoration(
+                        errorStyle: kErrorStyle,
                         border: InputBorder.none,
                         filled: true,
                         fillColor: kGrayTextField,
@@ -105,23 +119,30 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
                       hintText: 'Enter Budget Quantity',
                       hintStyle: kHintTextStyle,
+                      prefixText: getCurrency() + '\t',
+                      prefixStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                      ),
                     ),
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: true),
                     controller: valueBudgetQuantity,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
+                      FilteringTextInputFormatter.digitsOnly,
                     ],
                     validator: (valueBudgetQuantity) {
                       if (valueBudgetQuantity == null ||
                           valueBudgetQuantity.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       } else
                         return null;
                     },
@@ -139,7 +160,9 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
@@ -164,7 +187,7 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
       ),
       bottomNavigationBar: Container(
         color: kOffWhite,
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -222,9 +245,12 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
   }
 
   Future updateBudget() async {
+    String budgetQuantity =
+        valueBudgetQuantity.text.replaceAll(new RegExp(r'[^0-9]'), '');
+
     final budget = widget.budget!.copy(
       budgetName: valueBudgetTitle.text.toString(),
-      budgetQuantity: int.parse(valueBudgetQuantity.text),
+      budgetQuantity: int.parse(budgetQuantity),
       budgetDescription: valueBudgetDescription.toString(),
     );
 
@@ -232,9 +258,12 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
   }
 
   Future addBudget() async {
+    String budgetQuantity =
+        valueBudgetQuantity.text.replaceAll(new RegExp(r'[^0-9]'), '');
+
     final budget = Budget(
       budgetName: valueBudgetTitle.text.toString(),
-      budgetQuantity: int.parse(valueBudgetQuantity.text),
+      budgetQuantity: int.parse(budgetQuantity),
       budgetDescription: valueBudgetDescription.text.toString(),
     );
 

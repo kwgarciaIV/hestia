@@ -84,6 +84,14 @@ class BudgetDatabase {
         where: '${BudgetFields.budgetID} = ?', whereArgs: [id]);
   }
 
+/*
+  Future<List<Budget>> getBudgetChart() async {
+    final db = await instance.databaseBudget;
+    List<Map> list = await db
+        .rawQuery('SELECT budgetName, budgetQuantity FROM budgetDatabase');
+    return list.map((Budget) => Budget.fromMapObject(Budget)).toList();
+  }
+  */
   Future close() async {
     final db = await instance.databaseBudget;
     db.close();

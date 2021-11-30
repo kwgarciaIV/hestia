@@ -4,36 +4,33 @@ import 'package:hestia/constants.dart';
 import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
 import 'package:hestia/Screens/HomePage.dart';
+import 'package:page_transition/page_transition.dart';
 
-class AddTaskPopUp extends StatefulWidget {
-  final Task? task;
+class EditTaskPopUp extends StatefulWidget {
+  final Task task;
 
-  const AddTaskPopUp({Key? key, this.task}) : super(key: key);
+  const EditTaskPopUp({Key? key, required this.task}) : super(key: key);
 
   @override
-  _AddTaskPopUpState createState() => _AddTaskPopUpState();
+  _EditTaskPopUpState createState() => _EditTaskPopUpState(task: task);
 }
 
-class _AddTaskPopUpState extends State<AddTaskPopUp> {
-  String? valueCategory;
-
+class _EditTaskPopUpState extends State<EditTaskPopUp> {
+  _EditTaskPopUpState({required this.task});
+  final Task task;
+  String? dropDownValue;
+  String error = 'This is required.';
   final _formTaskKey = GlobalKey<FormState>();
   late int taskID;
-  late String taskTitle;
-  late String taskDescription;
-  late String taskCategory;
 
-  final valueTaskTitle = TextEditingController();
-  final valueTaskDescription = TextEditingController();
+  TextEditingController valueTaskTitle = TextEditingController();
+  TextEditingController valueTaskDescription = TextEditingController();
 
   @override
   void initState() {
+    valueTaskTitle = TextEditingController()..text = task.taskTitle;
+    valueTaskDescription = TextEditingController()..text = task.taskDescription;
     super.initState();
-
-    taskID = widget.task?.taskID ?? 0;
-    taskTitle = widget.task?.taskTitle ?? '';
-    taskDescription = widget.task?.taskDescription ?? '';
-    taskCategory = widget.task?.taskCategory ?? '';
   }
 
   @override
@@ -42,6 +39,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
           decoration: BoxDecoration(
             color: kOffWhite,
           ),
@@ -55,7 +53,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   padding: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Center(
                       child: Text(
-                    'Save Task',
+                    'Edit Task'.toUpperCase(),
                     style: kTitlePopUp,
                   )),
                 ),
@@ -72,17 +70,20 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
                     maxLength: 15,
+                    style: kInputTextStyle,
+                    scrollPadding: EdgeInsets.only(bottom: 40),
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
-                      hintText: 'Enter Task Title',
+                      hintText: task.taskTitle,
                       hintStyle: kHintTextStyle,
                     ),
                     controller: valueTaskTitle,
                     validator: (valueTaskTitle) {
                       if (valueTaskTitle == null || valueTaskTitle.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       }
                       return null;
                     },
@@ -100,11 +101,14 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
+                    scrollPadding: EdgeInsets.only(bottom: 40),
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
-                      hintText: 'Enter Task Description',
+                      hintText: task.taskDescription,
                       hintStyle: kHintTextStyle,
                     ),
                     maxLines: 6,
@@ -112,7 +116,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                     validator: (valueTaskDescription) {
                       if (valueTaskDescription == null ||
                           valueTaskDescription.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       }
                       return null;
                     },
@@ -130,27 +134,30 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   color: Colors.white,
                   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 0),
                     child: FormField<String>(
                       builder: (FormFieldState<String> state) {
                         return DropdownButtonFormField<String>(
+                          value: task.taskCategory,
                           decoration: InputDecoration(
+                            errorStyle: kErrorStyle,
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
                           ),
-                          hint: valueCategory == null
-                              ? Text('Choose Task Category')
+                          hint: dropDownValue == null
+                              ? Text(task.taskCategory)
                               : Text(
-                                  valueCategory!,
-                                  style: valueCategory == ''
+                                  dropDownValue!,
+                                  style: dropDownValue == ''
                                       ? kHintTextStyle
                                       : kInputTextStyle,
                                 ),
                           isExpanded: true,
                           focusColor: Colors.white,
                           iconSize: 30.0,
-                          style: valueCategory == ''
+                          style: dropDownValue == ''
                               ? kHintTextStyle
                               : kInputTextStyle,
                           items: [
@@ -171,11 +178,11 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                             },
                           ).toList(),
                           validator: (val) =>
-                              val == null ? "Select category <3" : null,
+                              val == null || val.isEmpty ? error : null,
                           onChanged: (val) {
                             setState(
                               () {
-                                valueCategory = val.toString();
+                                dropDownValue = val.toString();
                               },
                             );
                           },
@@ -198,7 +205,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
             //"Back" Button
             GestureDetector(
               onTap: () {
-                Navigator.pop(context, AddTaskPopUp());
+                Navigator.pop(context, EditTaskPopUp(task: task));
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -226,7 +233,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   addOrUpdateTask();
                   print(valueTaskTitle.text.toString());
                   print(valueTaskDescription.text.toString());
-                  print(valueCategory.toString());
+                  print(dropDownValue.toString());
                 }
               },
               child: Container(
@@ -248,10 +255,10 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
   }
 
   Future updateTask() async {
-    final task = widget.task!.copy(
+    final task = widget.task.copy(
       taskTitle: valueTaskTitle.text.toString(),
       taskDescription: valueTaskDescription.text.toString(),
-      taskCategory: valueCategory.toString(),
+      taskCategory: dropDownValue.toString(),
     );
 
     await TaskDatabase.instance.update(task);
@@ -261,7 +268,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
     final task = Task(
       taskTitle: valueTaskTitle.text.toString(),
       taskDescription: valueTaskDescription.text.toString(),
-      taskCategory: valueCategory.toString(),
+      taskCategory: dropDownValue.toString(),
     );
 
     await TaskDatabase.instance.create(task);
@@ -278,9 +285,12 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
       } else {
         await addTask();
       }
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+      Navigator.of(context).pushAndRemoveUntil(
+        PageTransition(
+          type: PageTransitionType.fade,
+          child: HomePage(),
+        ),
+        (route) => false,
       );
     }
   }

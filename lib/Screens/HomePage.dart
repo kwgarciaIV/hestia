@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hestia/Components/BottomActions.dart';
+import 'package:hestia/Screens/BottomActions.dart';
 import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -43,12 +43,6 @@ class _HomePageState extends State<HomePage> {
 
     refreshTask();
     getData();
-  }
-
-  void dispose() {
-    TaskDatabase.instance.close();
-
-    super.dispose();
   }
 
   Future refreshTask() async {
