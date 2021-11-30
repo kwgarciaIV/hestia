@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hestia/Weather/constants.dart';
-// import 'package:clima/services/weather.dart';
 import 'package:hestia/Weather/weather.dart';
 import 'city_screen.dart';
 
@@ -105,11 +103,9 @@ class _LocationScreenState extends State<LocationScreen> {
                   children: <Widget>[
                     Text(
                       '$temperature°',
-                      style: kTempTextStyle,
                     ),
                     Text(
                       weatherIcon,
-                      style: kConditionTextStyle,
                     ),
                   ],
                 ),
@@ -119,7 +115,6 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Text(
                   '$weatherMessage in $cityName',
                   textAlign: TextAlign.right,
-                  style: kMessageTextStyle,
                 ),
               ),
             ],

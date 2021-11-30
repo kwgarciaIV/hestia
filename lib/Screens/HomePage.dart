@@ -20,6 +20,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 enum SelectedTab { add, home, weekly, inventory }
 
 class HomePage extends StatefulWidget {
+  HomePage({this.locationWeather});
+
+  final locationWeather;
+
   @override
   _HomePageState createState() => _HomePageState();
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hestia/Weather/constants.dart';
+//import 'package:hestia/constants.dart';
 
 class CityScreen extends StatefulWidget {
   @override
@@ -41,7 +41,6 @@ class _CityScreenState extends State<CityScreen> {
                   style: TextStyle(
                     color: Colors.black,
                   ),
-                  decoration: kTextFieldInputDecoration,
                   onChanged: (value) {
                     cityName = value;
                   },
@@ -53,7 +52,6 @@ class _CityScreenState extends State<CityScreen> {
                 },
                 child: Text(
                   'Get Weather',
-                  style: kButtonTextStyle,
                 ),
               ),
             ],
