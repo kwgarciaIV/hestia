@@ -12,6 +12,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hestia/Database/budget_database.dart';
 import 'package:hestia/Model/budget.dart';
 import 'package:hestia/Components/AddBudgetPopUp.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class BudgetPage extends StatefulWidget {
   const BudgetPage({Key? key}) : super(key: key);
@@ -23,14 +26,27 @@ class BudgetPage extends StatefulWidget {
 class _BudgetPageState extends State<BudgetPage> {
   late List<Budget> budget;
   bool isLoading = false;
-
+  late TooltipBehavior _tooltipBehavior;
   var myRichRunesMessage = new Runes('\u20b1');
+
+  Map<String, double> dataMap = {
+    "All": 20000.0,
+    "Malls": 2000.0,
+    "Xamarin": 4000.0,
+    "Ionic": 10000,
+  };
 
   @override
   void initState() {
     super.initState();
-
+    _tooltipBehavior = TooltipBehavior(enable: true);
     refreshTask();
+  }
+
+  String getCurrency() {
+    var format =
+        NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'PHP');
+    return format.currencySymbol;
   }
 
   Future refreshTask() async {
@@ -90,10 +106,12 @@ class _BudgetPageState extends State<BudgetPage> {
                       ),
                       Row(
                         children: [
-                          Container(
-                            child: Image.asset(
-                              "images/pesosign.png",
-                              width: 35,
+                          Text(
+                            getCurrency(),
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40.0,
                             ),
                           ),
                           SizedBox(
@@ -123,9 +141,47 @@ class _BudgetPageState extends State<BudgetPage> {
                       ),
                       Container(
                         width: double.infinity,
-                        color: Colors.white,
-                        height: 250,
-                      )
+                        color: kOffWhite,
+                        height: 300,
+                        child: budget.isNotEmpty
+                            ? SfCircularChart(
+                                legend: Legend(
+                                  isVisible: true,
+                                  textStyle: TextStyle(
+                                    fontFamily: 'Montserrat-Bold',
+                                    fontSize: 18,
+                                    color: kVeryDarkGreen,
+                                  ),
+                                ),
+                                tooltipBehavior: _tooltipBehavior,
+                                series: <CircularSeries>[
+                                  PieSeries<Budget, String>(
+                                    dataSource: budget,
+                                    xValueMapper: (Budget budget, _) =>
+                                        budget.budgetName,
+                                    yValueMapper: (Budget budget, _) =>
+                                        budget.budgetQuantity,
+                                    dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                      textStyle: TextStyle(
+                                        fontFamily: 'Montserrat-Bold',
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Container(
+                                color: kOffWhite,
+                                height: 50.0,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text("No Budget Entries",
+                                      style: kLabelInputField),
+                                ),
+                              ),
+                      ),
                     ],
                   ),
                 ),
@@ -164,7 +220,7 @@ class _BudgetPageState extends State<BudgetPage> {
                         ? CircularProgressIndicator()
                         : budget.isEmpty
                             ? Text('No Set Budget', style: kLabelInputField)
-                            : buildIBudget(),
+                            : buildBudget(),
                   ),
                 ),
               ],
@@ -176,7 +232,7 @@ class _BudgetPageState extends State<BudgetPage> {
     );
   }
 
-  Widget buildIBudget() => StaggeredGridView.countBuilder(
+  Widget buildBudget() => StaggeredGridView.countBuilder(
         staggeredTileBuilder: (index) => StaggeredTile.fit(1),
         crossAxisCount: 1,
         itemCount: budget.length,

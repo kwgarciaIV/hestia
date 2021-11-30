@@ -19,15 +19,17 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
   _EditTaskPopUpState({required this.task});
   final Task task;
   String? dropDownValue;
-
+  String error = 'This is required.';
   final _formTaskKey = GlobalKey<FormState>();
   late int taskID;
 
-  final valueTaskTitle = TextEditingController();
-  final valueTaskDescription = TextEditingController();
+  TextEditingController valueTaskTitle = TextEditingController();
+  TextEditingController valueTaskDescription = TextEditingController();
 
   @override
   void initState() {
+    valueTaskTitle = TextEditingController()..text = task.taskTitle;
+    valueTaskDescription = TextEditingController()..text = task.taskDescription;
     super.initState();
   }
 
@@ -37,6 +39,7 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
           decoration: BoxDecoration(
             color: kOffWhite,
           ),
@@ -50,7 +53,7 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                   padding: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Center(
                       child: Text(
-                    'Edit Task',
+                    'Edit Task'.toUpperCase(),
                     style: kTitlePopUp,
                   )),
                 ),
@@ -67,18 +70,20 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
                     maxLength: 15,
+                    style: kInputTextStyle,
                     scrollPadding: EdgeInsets.only(bottom: 40),
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
                       hintText: task.taskTitle,
-                      hintStyle: kInputTextStyle,
+                      hintStyle: kHintTextStyle,
                     ),
                     controller: valueTaskTitle,
                     validator: (valueTaskTitle) {
                       if (valueTaskTitle == null || valueTaskTitle.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       }
                       return null;
                     },
@@ -96,20 +101,22 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
                     scrollPadding: EdgeInsets.only(bottom: 40),
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
                       hintText: task.taskDescription,
-                      hintStyle: kInputTextStyle,
+                      hintStyle: kHintTextStyle,
                     ),
                     maxLines: 6,
                     controller: valueTaskDescription,
                     validator: (valueTaskDescription) {
                       if (valueTaskDescription == null ||
                           valueTaskDescription.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       }
                       return null;
                     },
@@ -132,7 +139,9 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                     child: FormField<String>(
                       builder: (FormFieldState<String> state) {
                         return DropdownButtonFormField<String>(
+                          value: task.taskCategory,
                           decoration: InputDecoration(
+                            errorStyle: kErrorStyle,
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
@@ -168,9 +177,8 @@ class _EditTaskPopUpState extends State<EditTaskPopUp> {
                               );
                             },
                           ).toList(),
-                          validator: (val) => val == null || val.isEmpty
-                              ? 'Choose Category <3'
-                              : null,
+                          validator: (val) =>
+                              val == null || val.isEmpty ? error : null,
                           onChanged: (val) {
                             setState(
                               () {

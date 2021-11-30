@@ -105,3 +105,14 @@ const kBudgetCardTitle = TextStyle(
   fontFamily: 'Poppins-Bold',
   fontSize: 19,
 );
+
+const kErrorStyle = TextStyle(
+  fontSize: 12.0,
+  fontFamily: 'Montserrat-Bold',
+);
+
+const kAboutUs = TextStyle(
+  fontSize: 16,
+  fontFamily: 'Montserrat-Medium',
+  color: kMainDarkGreen,
+);

@@ -16,7 +16,7 @@ class AddTaskPopUp extends StatefulWidget {
 
 class _AddTaskPopUpState extends State<AddTaskPopUp> {
   String? valueCategory;
-
+  String error = 'This is required.';
   final _formTaskKey = GlobalKey<FormState>();
   late int taskID;
   late String taskTitle;
@@ -42,6 +42,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
           decoration: BoxDecoration(
             color: kOffWhite,
           ),
@@ -55,7 +56,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   padding: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Center(
                       child: Text(
-                    'Save Task',
+                    'Save Task'.toUpperCase(),
                     style: kTitlePopUp,
                   )),
                 ),
@@ -71,8 +72,10 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
                     maxLength: 15,
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
@@ -82,7 +85,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                     controller: valueTaskTitle,
                     validator: (valueTaskTitle) {
                       if (valueTaskTitle == null || valueTaskTitle.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       }
                       return null;
                     },
@@ -100,7 +103,9 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
@@ -112,7 +117,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                     validator: (valueTaskDescription) {
                       if (valueTaskDescription == null ||
                           valueTaskDescription.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       }
                       return null;
                     },
@@ -135,6 +140,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                       builder: (FormFieldState<String> state) {
                         return DropdownButtonFormField<String>(
                           decoration: InputDecoration(
+                            errorStyle: kErrorStyle,
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
@@ -170,8 +176,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
                               );
                             },
                           ).toList(),
-                          validator: (val) =>
-                              val == null ? "Select category <3" : null,
+                          validator: (val) => val == null ? error : null,
                           onChanged: (val) {
                             setState(
                               () {

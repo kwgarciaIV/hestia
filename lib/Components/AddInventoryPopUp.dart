@@ -20,12 +20,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
   String valueInventoryCategory = '';
 
   final _formInventoryKey = GlobalKey<FormState>();
-
-  late int? inventoryID;
-  late String inventoryTitle;
-  late String inventoryCategory;
-  late int inventoryQuantity;
-  late String inventoryMeasure;
+  String error = 'This is required.';
 
   final valueInventoryTitle = TextEditingController();
   final valueInventoryQuantity = TextEditingController();
@@ -33,12 +28,6 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
   @override
   void initState() {
     super.initState();
-
-    inventoryID = widget.inventory?.inventoryID ?? 0;
-    inventoryTitle = widget.inventory?.inventoryTitle ?? '';
-    inventoryCategory = widget.inventory?.inventoryCategory ?? '';
-    inventoryQuantity = widget.inventory?.inventoryQuantity ?? 0;
-    inventoryMeasure = widget.inventory?.inventoryMeasure ?? '';
   }
 
   @override
@@ -47,6 +36,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
           decoration: BoxDecoration(
             color: kOffWhite,
           ),
@@ -60,7 +50,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                   padding: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Center(
                       child: Text(
-                    'Save Item',
+                    'Save Item'.toUpperCase(),
                     style: kTitlePopUp,
                   )),
                 ),
@@ -76,8 +66,10 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      style: kInputTextStyle,
                       maxLength: 15,
                       decoration: InputDecoration(
+                        errorStyle: kErrorStyle,
                         border: InputBorder.none,
                         filled: true,
                         fillColor: kGrayTextField,
@@ -88,7 +80,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                       validator: (valueInventoryName) {
                         if (valueInventoryName == null ||
                             valueInventoryName.isEmpty) {
-                          return 'Please enter some text';
+                          return error;
                         }
                         return null;
                       }),
@@ -105,8 +97,10 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                      style: kInputTextStyle,
                       maxLength: 2,
                       decoration: InputDecoration(
+                        errorStyle: kErrorStyle,
                         border: InputBorder.none,
                         filled: true,
                         fillColor: kGrayTextField,
@@ -122,7 +116,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                       validator: (valueInventoryQuantity) {
                         if (valueInventoryQuantity == null ||
                             valueInventoryQuantity.isEmpty) {
-                          return 'Please enter some text';
+                          return error;
                         } else
                           return null;
                       }),
@@ -144,6 +138,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                         builder: (FormFieldState<String> state) {
                       return DropdownButtonFormField<String>(
                         decoration: InputDecoration(
+                          errorStyle: kErrorStyle,
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
@@ -176,8 +171,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                             );
                           },
                         ).toList(),
-                        validator: (val) =>
-                            val == null ? 'Select category <3' : null,
+                        validator: (val) => val == null ? error : null,
                         onChanged: (val) {
                           setState(
                             () {
@@ -206,6 +200,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                       builder: (FormFieldState<String> state) {
                         return DropdownButtonFormField<String>(
                           decoration: InputDecoration(
+                            errorStyle: kErrorStyle,
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
@@ -249,8 +244,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
                               );
                             },
                           ).toList(),
-                          validator: (val) =>
-                              val == null ? 'Select category <3' : null,
+                          validator: (val) => val == null ? error : null,
                           onChanged: (val) {
                             setState(
                               () {

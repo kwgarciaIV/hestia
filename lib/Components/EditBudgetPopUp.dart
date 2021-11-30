@@ -5,6 +5,8 @@ import 'package:hestia/Database/budget_database.dart';
 import 'package:hestia/Model/budget.dart';
 import 'package:flutter/services.dart';
 import 'package:hestia/Screens/BudgetPage.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
 
 class EditBudgetPopUp extends StatefulWidget {
   final Budget budget;
@@ -21,13 +23,26 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
   final Budget budget;
   final _formBudgetKey = GlobalKey<FormState>();
 
-  final valueBudgetTitle = TextEditingController();
-  final valueBudgetQuantity = TextEditingController();
-  final valueBudgetDescription = TextEditingController();
+  String error = 'This is required.';
+
+  TextEditingController valueBudgetTitle = TextEditingController();
+  TextEditingController valueBudgetQuantity = TextEditingController();
+  TextEditingController valueBudgetDescription = TextEditingController();
 
   @override
   void initState() {
+    valueBudgetTitle = TextEditingController()..text = budget.budgetName;
+    valueBudgetDescription = TextEditingController()
+      ..text = budget.budgetDescription;
+    valueBudgetQuantity = TextEditingController()
+      ..text = budget.budgetQuantity.toString();
     super.initState();
+  }
+
+  String getCurrency() {
+    var format =
+        NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'PHP');
+    return format.currencySymbol;
   }
 
   @override
@@ -80,7 +95,9 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
                       maxLength: 15,
+                      style: kInputTextStyle,
                       decoration: InputDecoration(
+                        errorStyle: kErrorStyle,
                         border: InputBorder.none,
                         filled: true,
                         fillColor: kGrayTextField,
@@ -91,7 +108,7 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                       validator: (valueBudgetTitle) {
                         if (valueBudgetTitle == null ||
                             valueBudgetTitle.isEmpty) {
-                          return 'Please enter some text';
+                          return error;
                         }
                         return null;
                       }),
@@ -108,12 +125,19 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
                       hintText: budget.budgetQuantity.toString(),
                       hintStyle: kHintTextStyle,
+                      prefixText: getCurrency() + '\t',
+                      prefixStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                      ),
                     ),
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: true),
@@ -142,7 +166,9 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: TextFormField(
+                    style: kInputTextStyle,
                     decoration: InputDecoration(
+                      errorStyle: kErrorStyle,
                       border: InputBorder.none,
                       filled: true,
                       fillColor: kGrayTextField,
@@ -154,7 +180,7 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                     validator: (valueBudgetDescription) {
                       if (valueBudgetDescription == null ||
                           valueBudgetDescription.isEmpty) {
-                        return 'Please enter some text';
+                        return error;
                       } else
                         return null;
                     },

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hestia/Screens/AboutUsPage.dart';
 import 'package:hestia/constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Screens/HomePage.dart';
 import '../Screens/InventoryPage.dart';
 import '../Screens/BudgetPage.dart';
+import '../Screens/AboutUsPage.dart';
 
-enum PageSelection { home, budget, inventory, about, settings }
+enum PageSelection { home, budget, inventory, about }
 
 class NavigationBar extends StatefulWidget {
   NavigationBar({this.selectedPage});
@@ -207,6 +209,13 @@ class _NavigationBarState extends State<NavigationBar> {
                         setState(() {
                           selectedPage = PageSelection.about;
                         });
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: AboutUsPage(),
+                          ),
+                        );
                       },
                       child: Text(
                         'About Us',

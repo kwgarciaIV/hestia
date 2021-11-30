@@ -45,12 +45,6 @@ class _HomePageState extends State<HomePage> {
     getData();
   }
 
-  void dispose() {
-    TaskDatabase.instance.close();
-
-    super.dispose();
-  }
-
   Future refreshTask() async {
     setState(() => isLoading = true);
 

@@ -6,6 +6,10 @@ import 'package:hestia/Database/budget_database.dart';
 import 'package:hestia/Model/budget.dart';
 import 'package:hestia/Screens/BudgetPage.dart';
 import 'package:hestia/Components/EditBudgetPopUp.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
+
+final formatCurrency = new NumberFormat.simpleCurrency();
 
 class SwipableBudgetCard extends StatefulWidget {
   final Budget budget;
@@ -26,6 +30,12 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
 
   final Budget budget;
   final int index;
+
+  String getCurrency() {
+    var format =
+        NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'PHP');
+    return format.currencySymbol;
+  }
 
   Widget build(BuildContext context) {
     return Slidable(
@@ -73,10 +83,6 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        radius: 12,
-                        backgroundColor: Colors.deepPurple,
-                      ),
                       SizedBox(
                         width: 12,
                       ),
@@ -89,7 +95,16 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
                   Row(
                     children: [
                       Text(
-                        'PHP. ' + budget.budgetQuantity.toString(),
+                        getCurrency() + '',
+                        style: TextStyle(
+                          color: kMainDarkGreen,
+                          fontSize: 21,
+                        ),
+                      ),
+                      Text(
+                        formatCurrency
+                            .format(budget.budgetQuantity)
+                            .replaceAll('\$', ''),
                         style: kBudgetCardTitle,
                       ),
                       GestureDetector(
