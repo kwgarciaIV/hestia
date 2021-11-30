@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hestia/Screens/BottomActions.dart';
+import 'package:hestia/Components/BottomActions.dart';
 import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -13,6 +13,9 @@ import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:math';
 
 //No NavBar button
 //Cards not dismissive, still not a component
@@ -34,6 +37,23 @@ class _HomePageState extends State<HomePage> {
   late List<Task> task;
   bool isLoading = false;
   late int temperature = 0;
+
+  //Quote archiving code
+  Future getQuotesData() async {
+    var response = await http.get(Uri.parse('https://type.fit/api/quotes'));
+
+    //declare var json data
+    var jsonData = jsonDecode(response.body);
+    List<Quotes> quote = [];
+
+    for (var q in jsonData) {
+      Quotes quotes = Quotes(q['text'], q['author']);
+      quote.add(quotes);
+    }
+    //to check whow many quotes
+    //print(quote.length);
+    return quote;
+  }
 
   void updateUI(dynamic weatherData) {
     setState(() {
@@ -83,6 +103,7 @@ class _HomePageState extends State<HomePage> {
     var now = new DateTime.now();
     var formatter = new DateFormat.MMMMEEEEd();
     String formattedDate = formatter.format(now);
+    int randomNumber = Random().nextInt(1644);
 
     //Temperature to string
     String temperatureString = temperature.toString();
@@ -188,10 +209,42 @@ class _HomePageState extends State<HomePage> {
                           style: kTitle,
                         ),
                       ),
-                      NotificationCard(
-                          title: 'Lorem Ipsum',
-                          categ: 'Category',
-                          desc: 'Lorem ipsum dolor sit amet, consectetur '),
+                      Container(
+                        child: Card(
+                          child: FutureBuilder(
+                            future: getQuotesData(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<dynamic> snapshot) {
+                              if (snapshot.data == null) {
+                                return CircularProgressIndicator();
+                              } else if ((((snapshot.data
+                                          as dynamic)[randomNumber]
+                                      .author)) ==
+                                  null) {
+                                return NotificationCard(
+                                    title: "Anonymous",
+                                    categ: "Quotes",
+                                    desc:
+                                        (snapshot.data as dynamic)[randomNumber]
+                                            .text);
+                              } else {
+                                return NotificationCard(
+                                    title: (((snapshot.data
+                                            as dynamic)[randomNumber]
+                                        .author)),
+                                    categ: "Quotes",
+                                    desc:
+                                        (snapshot.data as dynamic)[randomNumber]
+                                            .text);
+                              }
+                            },
+                          ),
+                        ),
+                      )
+                      // NotificationCard(
+                      //     title: 'Lorem Ipsum',
+                      //     categ: 'Category',
+                      //     desc: 'Lorem ipsum dolor sit amet, consectetur '),
                     ],
                   ),
                 ),
@@ -221,4 +274,11 @@ class _HomePageState extends State<HomePage> {
           );
         },
       );
+}
+
+class Quotes {
+  final String text, author;
+
+  //Constructor for final var
+  Quotes(this.text, this.author);
 }
