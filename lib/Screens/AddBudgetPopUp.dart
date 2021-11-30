@@ -8,6 +8,7 @@ import 'package:hestia/Screens/BudgetPage.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddBudgetPopUp extends StatefulWidget {
   final Budget? budget;
@@ -22,6 +23,7 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
   final _formBudgetKey = GlobalKey<FormState>();
 
   String error = 'This is required.';
+  String currentBudget = '';
 
   final valueBudgetTitle = TextEditingController();
   final valueBudgetQuantity = new MoneyMaskedTextController(
@@ -30,7 +32,17 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
 
   @override
   void initState() {
+    getData();
     super.initState();
+  }
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(
+      () {
+        currentBudget = prefs.getString('currentBudget')!;
+      },
+    );
   }
 
   String getCurrency() {
@@ -41,6 +53,13 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
 
   @override
   Widget build(BuildContext context) {
+    String? displayBudget() {
+      if (currentBudget != null)
+        return currentBudget;
+      else
+        return "No budget inputted";
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -64,8 +83,9 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
                   height: 5,
                 ),
                 Center(
+                  //Peso sign add
                   child: Text(
-                    'Remaining balance: P 3,000.00',
+                    'Remaining balance: PHP ' + displayBudget()!,
                     style: TextStyle(
                       fontFamily: 'Poppins-SemiBold',
                       fontSize: 15,

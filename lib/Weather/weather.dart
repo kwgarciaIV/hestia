@@ -1,7 +1,7 @@
 import 'package:hestia/Weather/location.dart';
 import 'package:hestia/Weather/networking.dart';
 
-const apiKey = '49ea4349bc731985c28903a26e19bd08';
+const apiKey = '12878e0a559c77a2c43161a710d3ed1d';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 
 class WeatherModel {

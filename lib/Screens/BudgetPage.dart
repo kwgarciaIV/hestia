@@ -15,6 +15,8 @@ import 'package:hestia/Screens/AddBudgetPopUp.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class BudgetPage extends StatefulWidget {
   const BudgetPage({Key? key}) : super(key: key);
@@ -28,6 +30,10 @@ class _BudgetPageState extends State<BudgetPage> {
   bool isLoading = false;
   late TooltipBehavior _tooltipBehavior;
   var myRichRunesMessage = new Runes('\u20b1');
+  final balance = new MoneyMaskedTextController(
+      precision: 0, decimalSeparator: '', thousandSeparator: ',');
+  bool _isEditing = false;
+  String icon = 'pen';
 
   Map<String, double> dataMap = {
     "All": 20000.0,
@@ -117,22 +123,46 @@ class _BudgetPageState extends State<BudgetPage> {
                           SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            // ' ${String.fromCharCode(0x0020B1)} '
-                            '70,000.00',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40.0,
-                              fontFamily: 'Poppins-Regular',
+                          Container(
+                            width: 180,
+                            child: TextFormField(
+                              controller: balance,
+                              autofocus: false,
+                              enabled: _isEditing,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40.0,
+                                fontFamily: 'Poppins-Regular',
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: 12,
                           ),
-                          FaIcon(
-                            FontAwesomeIcons.pen,
-                            color: kOffWhite,
+                          GestureDetector(
+                            onTap: () {
+                              setState(
+                                () {
+                                  if (_isEditing == true) {
+                                    _isEditing = false;
+                                  } else if (_isEditing == false) {
+                                    _isEditing = true;
+                                  }
+                                },
+                              );
+                            },
+                            child: IconButton(
+                              onPressed: null,
+                              icon: _isEditing
+                                  ? new Icon(
+                                      FontAwesomeIcons.check,
+                                      color: kOffWhite,
+                                    )
+                                  : new Icon(
+                                      FontAwesomeIcons.pen,
+                                      color: kOffWhite,
+                                    ),
+                            ),
                           ),
                         ],
                       ),
@@ -192,7 +222,11 @@ class _BudgetPageState extends State<BudgetPage> {
                     children: [
                       Text('BUDGET ORGANIZER', style: kTitle),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          String budget = balance.text;
+                          prefs.setString('currentBudget', budget);
                           Navigator.push(
                             context,
                             PageTransition(

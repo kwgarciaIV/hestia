@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:intl/intl.dart';
 
 //No NavBar button
 //Cards not dismissive, still not a component
@@ -32,6 +33,18 @@ class _HomePageState extends State<HomePage> {
   var selectedTab = SelectedTab.home;
   late List<Task> task;
   bool isLoading = false;
+  late int temperature = 0;
+
+  void updateUI(dynamic weatherData) {
+    setState(() {
+      if (weatherData == null) {
+        temperature = 0;
+        return;
+      }
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+    });
+  }
 
   void handleIndexChanged(int i) {
     setState(() {
@@ -44,7 +57,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    updateUI(widget.locationWeather);
     refreshTask();
     getData();
   }
@@ -66,6 +79,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //Date format : Month ##, ####
+    var now = new DateTime.now();
+    var formatter = new DateFormat.MMMMEEEEd();
+    String formattedDate = formatter.format(now);
+
+    //Temperature to string
+    String temperatureString = temperature.toString();
+
     String display() {
       if (displayName != null)
         return "Hi $displayName!";
@@ -121,6 +142,11 @@ class _HomePageState extends State<HomePage> {
                         textAlign: TextAlign.left,
                         style: kSubHeading,
                       ),
+                      Text(
+                        temperatureString,
+                        textAlign: TextAlign.left,
+                        style: kSubHeading,
+                      )
                     ],
                   ),
                 ),
@@ -135,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                         style: kTitle,
                       ),
                       Text(
-                        'October 23, Wednesday',
+                        formattedDate,
                         style: TextStyle(
                           fontFamily: 'Montserrat-SemiBold',
                           fontSize: 17,

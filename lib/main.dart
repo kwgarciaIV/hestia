@@ -19,17 +19,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       builder: (context, widget) => ResponsiveWrapper.builder(
-          BouncingScrollWrapper.builder(context, widget!),
-          maxWidth: 1000,
-          minWidth: 450,
-          defaultScale: true,
-          breakpoints: [
-            ResponsiveBreakpoint.resize(450, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-          ],
-          background: Container(color: Color(0xFFF5F5F5))),
+        BouncingScrollWrapper.builder(context, widget!),
+        maxWidth: 1000,
+        minWidth: 450,
+        defaultScale: true,
+        breakpoints: [
+          ResponsiveBreakpoint.resize(450, name: MOBILE),
+          ResponsiveBreakpoint.autoScale(800, name: MOBILE),
+          ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+        ],
+        background: Container(
+          color: Color(0xFFF5F5F5),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: initScreen == 0 || initScreen == null ? 'login' : 'home',
       routes: {

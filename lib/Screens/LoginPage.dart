@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hestia/Screens/HomePage.dart';
-import '../constants.dart';
+import 'package:hestia/constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
