@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:hestia/Database/budget_database.dart';
 import 'package:hestia/Model/budget.dart';
 import 'package:hestia/Screens/BudgetPage.dart';
-import 'package:hestia/Components/EditBudgetPopUp.dart';
+import 'package:hestia/Screens/EditBudgetPopUp.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 

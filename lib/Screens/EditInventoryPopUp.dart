@@ -155,7 +155,7 @@ class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
                           ),
                         ),
                         hint: valueInventoryMeasure == ''
-                            ? Text('Choose Unit of Measure')
+                            ? Text(inventory.inventoryMeasure)
                             : Text(
                                 valueInventoryMeasure,
                                 style: valueInventoryMeasure == ''
@@ -217,7 +217,7 @@ class _EditInventoryPopUpState extends State<EditInventoryPopUp> {
                             ),
                           ),
                           hint: valueInventoryCategory == ''
-                              ? Text('Choose Item Category')
+                              ? Text(inventory.inventoryCategory)
                               : Text(
                                   valueInventoryCategory,
                                   style: valueInventoryCategory == ''

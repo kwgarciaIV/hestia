@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hestia/Components/EditTaskPopUp.dart';
+import 'package:hestia/Screens/EditTaskPopUp.dart';
 import 'package:hestia/constants.dart';
 import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
