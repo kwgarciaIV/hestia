@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hestia/Screens/HomePage.dart';
+import 'package:hestia/Weather/loading_screen.dart';
 import 'package:hestia/constants.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -65,12 +65,11 @@ class OnBoardingPage extends StatelessWidget {
       );
 
   void goToHome(context) => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => HomePage()),
+        MaterialPageRoute(builder: (_) => LoadingScreen()),
       );
 
-  Widget buildImage(String path) => Center(
-        child: Image.asset(path, width: 350),
-      );
+  Widget buildImage(String path) =>
+      Center(child: Image.asset(path, width: 350));
 
   PageDecoration getPageDecoration() => PageDecoration(
         titleTextStyle: kOBtitle,

@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                         style: kSubHeading,
                       ),
                       Text(
-                        temperatureString,
+                        temperatureString + ' °C',
                         textAlign: TextAlign.left,
                         style: kSubHeading,
                       )
@@ -247,9 +247,9 @@ class _HomePageState extends State<HomePage> {
                                 } else {
                                   return NotificationCard(
                                       title: 'Thomas Edison',
-                                      categ:
-                                          'Genius is one percent inspiration and ninety-nine percent perspiration.',
-                                      desc: 'Quotes');
+                                      categ: 'Quotes',
+                                      desc:
+                                          'Genius is one percent inspiration and ninety-nine percent perspiration.');
                                 }
                               },
                             ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hestia/Screens/HomePage.dart';
+import 'package:hestia/Weather/loading_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Screens/LoginPage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:hestia/Screens/OnBoardingPage.dart';
 
 int? initScreen;
 
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
       routes: {
         'home': (context) => HomePage(),
         'login': (context) => LoginPage(),
+        'onBoardingPage': (context) => OnBoardingPage(),
+        'loadingScreen': (context) => LoadingScreen(),
       },
     );
   }

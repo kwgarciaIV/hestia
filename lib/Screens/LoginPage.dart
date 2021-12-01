@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hestia/Screens/HomePage.dart';
+import 'package:hestia/Screens/OnBoardingPage.dart';
 import 'package:hestia/constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                     context,
                     PageTransition(
                       type: PageTransitionType.fade,
-                      child: HomePage(),
+                      child: OnBoardingPage(),
                       duration: Duration(milliseconds: 500),
                       reverseDuration: Duration(milliseconds: 500),
                     ),
