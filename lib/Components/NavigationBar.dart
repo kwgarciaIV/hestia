@@ -180,7 +180,7 @@ class _NavigationBarState extends State<NavigationBar> {
                         );
                       },
                       child: Text(
-                        'Budget',
+                        'Expenses',
                         textAlign: TextAlign.left,
                         style: selectedPage == PageSelection.budget
                             ? kNavBarTextStylePressed

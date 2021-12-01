@@ -208,45 +208,51 @@ class _HomePageState extends State<HomePage> {
                           style: kTitle,
                         ),
                       ),
-                      Container(
-                        child: Card(
-                          child: FutureBuilder(
-                            future: getQuotesData(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<dynamic> snapshot) {
-                              if (snapshot.data == null) {
-                                return CircularProgressIndicator();
-                              } else if ((((snapshot.data
-                                          as dynamic)[randomNumber]
-                                      .author)) ==
-                                  null) {
-                                return NotificationCard(
-                                    title: "Anonymous",
-                                    categ: "Quotes",
-                                    desc:
-                                        (snapshot.data as dynamic)[randomNumber]
-                                            .text);
-                              } else if (((snapshot.data
-                                              as dynamic)[randomNumber]
-                                          .author)
-                                      .length <
-                                  18) {
-                                return NotificationCard(
-                                    title: (((snapshot.data
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          child: Card(
+                            child: FutureBuilder(
+                              future: getQuotesData(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<dynamic> snapshot) {
+                                if (snapshot.data == null) {
+                                  return Container(
+                                    color: kOffWhite,
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if ((((snapshot.data
                                             as dynamic)[randomNumber]
-                                        .author)),
-                                    categ: "Quotes",
-                                    desc:
-                                        (snapshot.data as dynamic)[randomNumber]
-                                            .text);
-                              } else {
-                                return NotificationCard(
-                                    title: 'Thomas Edison',
-                                    categ:
-                                        'Genius is one percent inspiration and ninety-nine percent perspiration.',
-                                    desc: 'Quotes');
-                              }
-                            },
+                                        .author)) ==
+                                    null) {
+                                  return NotificationCard(
+                                      title: "Anonymous",
+                                      categ: "Quotes",
+                                      desc: (snapshot.data
+                                              as dynamic)[randomNumber]
+                                          .text);
+                                } else if (((snapshot.data
+                                                as dynamic)[randomNumber]
+                                            .author)
+                                        .length <
+                                    18) {
+                                  return NotificationCard(
+                                      title: (((snapshot.data
+                                              as dynamic)[randomNumber]
+                                          .author)),
+                                      categ: "Quotes",
+                                      desc: (snapshot.data
+                                              as dynamic)[randomNumber]
+                                          .text);
+                                } else {
+                                  return NotificationCard(
+                                      title: 'Thomas Edison',
+                                      categ:
+                                          'Genius is one percent inspiration and ninety-nine percent perspiration.',
+                                      desc: 'Quotes');
+                                }
+                              },
+                            ),
                           ),
                         ),
                       ),
