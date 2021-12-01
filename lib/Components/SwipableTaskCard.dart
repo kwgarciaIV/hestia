@@ -32,20 +32,12 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      // Specify a key if the Slidable is dismissible.
       key: UniqueKey(),
-
-      // The start action pane is the one at the left or the top side.
       endActionPane: ActionPane(
-        // A motion is a widget used to control how the pane animates.
-
-        // A pane can dismiss the Slidable.
         motion: ScrollMotion(),
         dismissible: DismissiblePane(
           onDismissed: () async {
             await TaskDatabase.instance.delete(task.taskID!);
-            //await TaskDatabase.instance.deleteAll();
-            //Navigator.of(context).pop();
             Navigator.of(context).pushAndRemoveUntil(
               PageTransition(
                 type: PageTransitionType.fade,
@@ -65,7 +57,6 @@ class _SwipableTaskCardState extends State<SwipableTaskCard> {
           ),
         ],
       ),
-
       child: Container(
         color: Colors.white,
         child: ListTile(

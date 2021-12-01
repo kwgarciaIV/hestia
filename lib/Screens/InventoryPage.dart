@@ -4,9 +4,9 @@ import 'package:flutter/rendering.dart';
 import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import '../Components/NavigationBar.dart';
+import 'package:hestia/Components/NavigationBar.dart';
 import 'package:hestia/Components/BottomActions.dart';
-import '../Components/SwipableInventoryCard.dart';
+import 'package:hestia/Components/SwipableInventoryCard.dart';
 import 'package:hestia/Screens/AddInventoryPopUp.dart';
 import 'package:hestia/Database/inventory_database.dart';
 import 'package:hestia/Model/inventory.dart';
@@ -106,7 +106,6 @@ class _InventoryPageState extends State<InventoryPage> {
                             child: Container(
                               margin: EdgeInsets.only(right: 30),
                               child: FloatingActionButton(
-                                //to be replaced by an icon
                                 child: Text('+',
                                     style: TextStyle(
                                       color: kMainDarkGreen,

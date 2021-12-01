@@ -82,10 +82,6 @@ class TaskDatabase {
 
     return await db
         .rawDelete('DELETE FROM $tableTask WHERE ${TaskFields.taskID} = $id');
-
-    /*    tableTask,
-      where: '${TaskFields.taskID} = ?',
-      whereArgs: [id],*/
   }
 
   Future<int> deleteAll() async {

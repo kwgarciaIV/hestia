@@ -12,26 +12,20 @@ class OnBoardingPage extends StatelessWidget {
           pages: [
             PageViewModel(
               title: 'Task Management',
-              body:
-                  'Track your upcoming tasks, and never miss any schedule.', //medj sabaw tings, pwede pa to change
-              image: buildImage(
-                  'images/Hestia Logo.png'), //change to task vector image
+              body: 'Track your upcoming tasks, and never miss any schedule.',
+              image: buildImage('images/Hestia1.png'),
               decoration: getPageDecoration(),
             ),
             PageViewModel(
               title: 'Inventory Management',
-              body:
-                  'Track your inventory stocks, avoid last minute shopping.', //medj sabaw tings, pwede pa to change
-              image: buildImage(
-                  'images/Hestia Logo.png'), //change to inventory vector image
+              body: 'Track your inventory stocks, avoid last minute shopping.',
+              image: buildImage('images/Hestia2.png'),
               decoration: getPageDecoration(),
             ),
             PageViewModel(
               title: 'Budget Management',
-              body:
-                  'Track your spending, and never worry on your budget.', //medj sabaw tings, pwede pa to change
-              image: buildImage(
-                  'images/Hestia Logo.png'), //change to budget vector image
+              body: 'Track your spending, and never worry on your budget.',
+              image: buildImage('images/Hestia3.png'),
               decoration: getPageDecoration(),
             )
           ],
@@ -47,10 +41,6 @@ class OnBoardingPage extends StatelessWidget {
           animationDuration: 500,
           skipFlex: 0,
           nextFlex: 0,
-          // showNextButton: false,
-          // isProgress: false,
-          // isProgressTap: false,
-          // freeze: true,
         ),
       );
 
@@ -68,14 +58,18 @@ class OnBoardingPage extends StatelessWidget {
         MaterialPageRoute(builder: (_) => LoadingScreen()),
       );
 
-  Widget buildImage(String path) =>
-      Center(child: Image.asset(path, width: 350));
+  Widget buildImage(String path) => Center(
+        child: Image.asset(path),
+      );
 
   PageDecoration getPageDecoration() => PageDecoration(
+        imageFlex: 7,
+        bodyFlex: 4,
         titleTextStyle: kOBtitle,
+        titlePadding: EdgeInsets.only(top: 30, bottom: 20),
         bodyTextStyle: kOBbody,
-        descriptionPadding: EdgeInsets.all(16).copyWith(bottom: 0),
-        imagePadding: EdgeInsets.all(24),
+        descriptionPadding: EdgeInsets.fromLTRB(30, 0, 30, 30),
+        imagePadding: EdgeInsets.only(top: 30),
         pageColor: Colors.white,
       );
 }

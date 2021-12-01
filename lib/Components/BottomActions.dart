@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../Screens/AddTaskPopUp.dart';
+import 'package:hestia/Screens/AddTaskPopUp.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:hestia/Components/NavigationBar.dart';
-import '../Screens/HomePage.dart';
-import '../Screens/InventoryPage.dart';
-import '../Screens/BudgetPage.dart';
-
-//enum PageSelection1 { home, budget, inventory, about, settings }
+import 'package:hestia/Screens/HomePage.dart';
+import 'package:hestia/Screens/InventoryPage.dart';
+import 'package:hestia/Screens/BudgetPage.dart';
 
 class BottomAction extends StatefulWidget {
   const BottomAction({Key? key}) : super(key: key);
@@ -23,7 +21,6 @@ class _BottomActionState extends State<BottomAction> {
 
   @override
   Widget build(BuildContext context) {
-    //return _show
     return Container(
       margin: EdgeInsets.fromLTRB(30, 0, 30, 20),
       height: 60,
@@ -50,15 +47,6 @@ class _BottomActionState extends State<BottomAction> {
                       child: AddTaskPopUp(),
                     ),
                   );
-                  /* showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddTaskPopUp();
-                    },
-                  );*/
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 5, right: 10),
@@ -100,7 +88,7 @@ class _BottomActionState extends State<BottomAction> {
                   child: FaIcon(
                     FontAwesomeIcons.home,
                     color: kOffWhite,
-                  ), // Icon widget changed with FaIcon
+                  ),
                   radius: 60.0,
                   backgroundColor: kMainDarkGreen,
                 ),
@@ -125,7 +113,7 @@ class _BottomActionState extends State<BottomAction> {
                   child: FaIcon(
                     FontAwesomeIcons.boxOpen,
                     color: kOffWhite,
-                  ), // Icon widget changed with FaIcon
+                  ),
                   radius: 60.0,
                   backgroundColor: kMainDarkGreen,
                 ),
@@ -151,7 +139,7 @@ class _BottomActionState extends State<BottomAction> {
                   child: FaIcon(
                     FontAwesomeIcons.wallet,
                     color: kOffWhite,
-                  ), // Icon widget changed with FaIcon
+                  ),
                   radius: 60.0,
                   backgroundColor: kMainDarkGreen,
                 ),
@@ -163,10 +151,4 @@ class _BottomActionState extends State<BottomAction> {
     );
     //: Row();
   }
-
-//   void _showBottomBar(bool value) {
-//     setState(() {
-//       _show = value;
-//     });
-//   }
 }

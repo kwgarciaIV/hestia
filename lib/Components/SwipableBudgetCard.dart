@@ -56,13 +56,8 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
 
   Widget build(BuildContext context) {
     return Slidable(
-      // Specify a key if the Slidable is dismissible.
       key: const ValueKey(0),
-
       endActionPane: ActionPane(
-        // A motion is a widget used to control how the pane animates.
-
-        // A pane can dismiss the Slidable.
         motion: ScrollMotion(),
         dismissible: DismissiblePane(
           onDismissed: () async {
@@ -77,8 +72,6 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
               ),
               (route) => false,
             );
-            //await TaskDatabase.instance.deleteAll();
-            //Navigator.of(context).pop();
           },
         ),
         children: const [
@@ -91,7 +84,6 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
           ),
         ],
       ),
-
       child: Container(
         color: Colors.white,
         child: ListTile(

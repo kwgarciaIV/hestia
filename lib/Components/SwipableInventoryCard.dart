@@ -29,29 +29,8 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
 
   Widget build(BuildContext context) {
     return Slidable(
-      // Specify a key if the Slidable is dismissible.
       key: const ValueKey(0),
-
-      // The start action pane is the one at the left or the top side.
-      /* startActionPane: ActionPane(
-        // A motion is a widget used to control how the pane animates.
-
-        // A pane can dismiss the Slidable.
-        motion: const BehindMotion(),
-        children: const [
-          SlidableAction(
-            onPressed: doNothing,
-            backgroundColor: Color(0xFF9AB6B4),
-            foregroundColor: Colors.white,
-            icon: Icons.add_circle_outline_rounded,
-            label: 'Add',
-          ),
-        ],
-      ),*/
       endActionPane: ActionPane(
-        // A motion is a widget used to control how the pane animates.
-
-        // A pane can dismiss the Slidable.
         motion: ScrollMotion(),
         dismissible: DismissiblePane(
           onDismissed: () async {
@@ -63,8 +42,6 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
               ),
               (route) => false,
             );
-            //await TaskDatabase.instance.deleteAll();
-            //Navigator.of(context).pop();
           },
         ),
         children: const [
@@ -77,7 +54,6 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
           ),
         ],
       ),
-
       child: Container(
         color: Colors.white,
         child: ListTile(
@@ -107,7 +83,6 @@ class _SwipableInventoryCardState extends State<SwipableInventoryCard> {
                     ),
                     Row(
                       children: <Widget>[
-                        // Container(height: 50, width: 2, color: kGrayHeading),
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 5),
                           child: Column(

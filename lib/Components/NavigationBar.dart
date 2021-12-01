@@ -3,10 +3,9 @@ import 'package:hestia/Screens/AboutUsPage.dart';
 import 'package:hestia/constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../Screens/HomePage.dart';
-import '../Screens/InventoryPage.dart';
-import '../Screens/BudgetPage.dart';
-import '../Screens/AboutUsPage.dart';
+import 'package:hestia/Screens/HomePage.dart';
+import 'package:hestia/Screens/InventoryPage.dart';
+import 'package:hestia/Screens/BudgetPage.dart';
 
 enum PageSelection { home, budget, inventory, about }
 
@@ -231,17 +230,6 @@ class _NavigationBarState extends State<NavigationBar> {
               ],
             ),
           ),
-/*          Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: Text(
-              '© 2021 Tessera',
-              style: TextStyle(
-                color: Color(0xFF798A89),
-                fontFamily: 'Montserrat-Regular',
-                fontSize: 20.0,
-              ),
-            ),
-          ),*/
         ],
       ),
       bottomNavigationBar: Container(

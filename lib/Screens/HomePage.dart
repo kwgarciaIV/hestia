@@ -5,9 +5,9 @@ import 'package:hestia/Components/BottomActions.dart';
 import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import '../Components/NavigationBar.dart';
-import '../Components/NotificationCard.dart';
-import '../Components/SwipableTaskCard.dart';
+import 'package:hestia/Components/NavigationBar.dart';
+import 'package:hestia/Components/NotificationCard.dart';
+import 'package:hestia/Components/SwipableTaskCard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
@@ -17,9 +17,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:math';
 
-//No NavBar button
-//Cards not dismissive, still not a component
-//Bottom NavBar no functionality
+int randomNumber = Random().nextInt(1644);
 
 enum SelectedTab { add, home, weekly, inventory }
 
@@ -38,11 +36,9 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   late int temperature = 0;
 
-  //Quote archiving code
   Future getQuotesData() async {
     var response = await http.get(Uri.parse('https://type.fit/api/quotes'));
 
-    //declare var json data
     var jsonData = jsonDecode(response.body);
     List<Quotes> quote = [];
 
@@ -50,8 +46,6 @@ class _HomePageState extends State<HomePage> {
       Quotes quotes = Quotes(q['text'], q['author']);
       quote.add(quotes);
     }
-    //to check whow many quotes
-    //print(quote.length);
     return quote;
   }
 
@@ -101,13 +95,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //Date format : Month ##, ####
     var now = new DateTime.now();
     var formatter = new DateFormat.MMMMEEEEd();
     String formattedDate = formatter.format(now);
-    int randomNumber = Random().nextInt(1644);
 
-    //Temperature to string
     String temperatureString = temperature.toString();
 
     String display() {
@@ -289,7 +280,5 @@ class _HomePageState extends State<HomePage> {
 
 class Quotes {
   final String text, author;
-
-  //Constructor for final var
   Quotes(this.text, this.author);
 }

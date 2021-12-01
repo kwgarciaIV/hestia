@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hestia/constants.dart';
 import 'package:page_transition/page_transition.dart';
-import '../Components/NavigationBar.dart';
+import 'package:hestia/Components/NavigationBar.dart';
 
 enum SelectedTab { home, inventory, budget, about }
 
@@ -154,7 +154,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 3),
                     child: Text(
-                      '\tNumber: +63 9123 1232 123',
+                      '\tNumber: 0912 345 6789',
                       style: kAboutUs,
                     ),
                   ),
