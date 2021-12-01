@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hestia/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'AddTaskPopUp.dart';
+import '../Screens/AddTaskPopUp.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:hestia/Components/NavigationBar.dart';
-import 'HomePage.dart';
-import 'InventoryPage.dart';
-import 'BudgetPage.dart';
+import '../Screens/HomePage.dart';
+import '../Screens/InventoryPage.dart';
+import '../Screens/BudgetPage.dart';
 
 //enum PageSelection1 { home, budget, inventory, about, settings }
 

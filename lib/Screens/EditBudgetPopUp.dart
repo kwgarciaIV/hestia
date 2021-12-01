@@ -67,20 +67,7 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
-                ),
-                Center(
-                  child: Text(
-                    'Remaining balance: P 3,000.00',
-                    style: TextStyle(
-                      fontFamily: 'Poppins-SemiBold',
-                      fontSize: 15,
-                      color: kGrayButton,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 Padding(
                   padding:
@@ -117,7 +104,7 @@ class _EditBudgetPopUpState extends State<EditBudgetPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
                   child: Text(
-                    'Category Budget',
+                    'Category Expenses',
                     style: kLabelInputField,
                   ),
                 ),

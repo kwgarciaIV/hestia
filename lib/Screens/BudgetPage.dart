@@ -5,7 +5,7 @@ import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import '../Components/NavigationBar.dart';
-import 'package:hestia/Screens/BottomActions.dart';
+import 'package:hestia/Components/BottomActions.dart';
 import '../Components/SwipableBudgetCard.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,30 +29,31 @@ class _BudgetPageState extends State<BudgetPage> {
   late List<Budget> budget;
   bool isLoading = false;
   late TooltipBehavior _tooltipBehavior;
-  var myRichRunesMessage = new Runes('\u20b1');
   final balance = new MoneyMaskedTextController(
       precision: 0, decimalSeparator: '', thousandSeparator: ',');
-  bool _isEditing = false;
-  String icon = 'pen';
 
-  Map<String, double> dataMap = {
-    "All": 20000.0,
-    "Malls": 2000.0,
-    "Xamarin": 4000.0,
-    "Ionic": 10000,
-  };
-
-  @override
-  void initState() {
-    super.initState();
-    _tooltipBehavior = TooltipBehavior(enable: true);
-    refreshTask();
+  int? displayBudget;
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(
+      () {
+        displayBudget = prefs.getInt('displayBudget');
+      },
+    );
   }
 
   String getCurrency() {
     var format =
         NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'PHP');
     return format.currencySymbol;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    refreshTask();
+    getData();
   }
 
   Future refreshTask() async {
@@ -65,6 +66,13 @@ class _BudgetPageState extends State<BudgetPage> {
 
   @override
   Widget build(BuildContext context) {
+    String displayBudgetPref() {
+      if (displayBudget != null)
+        return '$displayBudget';
+      else
+        return 'nothing to return';
+    }
+
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => Scaffold(
@@ -102,7 +110,7 @@ class _BudgetPageState extends State<BudgetPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'Balance:',
+                        'Total Expenses:',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: kGold,
@@ -125,43 +133,15 @@ class _BudgetPageState extends State<BudgetPage> {
                           ),
                           Container(
                             width: 180,
-                            child: TextFormField(
-                              controller: balance,
-                              autofocus: false,
-                              enabled: _isEditing,
+                            child: Text(
+                              formatCurrency
+                                  .format(int.parse(displayBudgetPref()))
+                                  .replaceAll('\$', ''),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 40.0,
                                 fontFamily: 'Poppins-Regular',
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(
-                                () {
-                                  if (_isEditing == true) {
-                                    _isEditing = false;
-                                  } else if (_isEditing == false) {
-                                    _isEditing = true;
-                                  }
-                                },
-                              );
-                            },
-                            child: IconButton(
-                              onPressed: null,
-                              icon: _isEditing
-                                  ? new Icon(
-                                      FontAwesomeIcons.check,
-                                      color: kOffWhite,
-                                    )
-                                  : new Icon(
-                                      FontAwesomeIcons.pen,
-                                      color: kOffWhite,
-                                    ),
                             ),
                           ),
                         ],
@@ -207,7 +187,7 @@ class _BudgetPageState extends State<BudgetPage> {
                                 height: 50.0,
                                 child: Align(
                                   alignment: Alignment.center,
-                                  child: Text("No Budget Entries",
+                                  child: Text("No Expenses Entries",
                                       style: kLabelInputField),
                                 ),
                               ),
@@ -220,7 +200,7 @@ class _BudgetPageState extends State<BudgetPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('BUDGET ORGANIZER', style: kTitle),
+                      Text('EXPENSES ORGANIZER', style: kTitle),
                       GestureDetector(
                         onTap: () async {
                           SharedPreferences prefs =
@@ -253,7 +233,7 @@ class _BudgetPageState extends State<BudgetPage> {
                     child: isLoading
                         ? CircularProgressIndicator()
                         : budget.isEmpty
-                            ? Text('No Set Budget', style: kLabelInputField)
+                            ? Text('No Set Expenses', style: kLabelInputField)
                             : buildBudget(),
                   ),
                 ),

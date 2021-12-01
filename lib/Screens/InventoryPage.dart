@@ -5,7 +5,7 @@ import 'package:hestia/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import '../Components/NavigationBar.dart';
-import 'package:hestia/Screens/BottomActions.dart';
+import 'package:hestia/Components/BottomActions.dart';
 import '../Components/SwipableInventoryCard.dart';
 import 'package:hestia/Screens/AddInventoryPopUp.dart';
 import 'package:hestia/Database/inventory_database.dart';

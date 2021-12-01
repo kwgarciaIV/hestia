@@ -8,6 +8,7 @@ import 'package:hestia/Screens/BudgetPage.dart';
 import 'package:hestia/Screens/EditBudgetPopUp.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final formatCurrency = new NumberFormat.simpleCurrency();
 
@@ -37,6 +38,22 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
     return format.currencySymbol;
   }
 
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  int? displayBudget;
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(
+      () {
+        displayBudget = prefs.getInt('displayBudget');
+      },
+    );
+  }
+
   Widget build(BuildContext context) {
     return Slidable(
       // Specify a key if the Slidable is dismissible.
@@ -50,6 +67,9 @@ class _SwipableBudgetCardState extends State<SwipableBudgetCard> {
         dismissible: DismissiblePane(
           onDismissed: () async {
             await BudgetDatabase.instance.delete(budget.budgetID!);
+            SharedPreferences budgPref = await SharedPreferences.getInstance();
+            budgPref.setInt(
+                'displayBudget', displayBudget! - budget.budgetQuantity);
             Navigator.of(context).pushAndRemoveUntil(
               PageTransition(
                 type: PageTransitionType.fade,

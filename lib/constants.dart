@@ -116,3 +116,18 @@ const kAboutUs = TextStyle(
   fontFamily: 'Montserrat-Medium',
   color: kMainDarkGreen,
 );
+
+const kOnBoardButtons = TextStyle(
+  fontSize: 20,
+  fontFamily: 'Montserrat-Regular',
+);
+
+const kOBtitle = TextStyle(
+  fontSize: 28,
+  fontFamily: 'Montserrat-Bold',
+);
+
+const kOBbody = TextStyle(
+  fontSize: 20,
+  fontFamily: 'Montserrat-Medium',
+);

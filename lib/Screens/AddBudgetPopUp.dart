@@ -36,11 +36,12 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
     super.initState();
   }
 
+  int? displayBudget;
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(
       () {
-        currentBudget = prefs.getString('currentBudget')!;
+        displayBudget = prefs.getInt('displayBudget');
       },
     );
   }
@@ -53,13 +54,6 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
 
   @override
   Widget build(BuildContext context) {
-    String? displayBudget() {
-      if (currentBudget != null)
-        return currentBudget;
-      else
-        return "No budget inputted";
-    }
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -80,21 +74,7 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
-                ),
-                Center(
-                  //Peso sign add
-                  child: Text(
-                    'Remaining balance: PHP ' + displayBudget()!,
-                    style: TextStyle(
-                      fontFamily: 'Poppins-SemiBold',
-                      fontSize: 15,
-                      color: kGrayButton,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 Padding(
                   padding:
@@ -131,7 +111,7 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
                   child: Text(
-                    'Category Budget',
+                    'Category Expenses',
                     style: kLabelInputField,
                   ),
                 ),
@@ -252,7 +232,7 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 17.0, horizontal: 40.0),
                   child: Text(
-                    'Add to Budget',
+                    'Add to Expenses',
                     style: kButtonSaveBack,
                   ),
                 ),
@@ -280,6 +260,9 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
   Future addBudget() async {
     String budgetQuantity =
         valueBudgetQuantity.text.replaceAll(new RegExp(r'[^0-9]'), '');
+    SharedPreferences budgPref = await SharedPreferences.getInstance();
+    budgPref.setInt(
+        'displayBudget', displayBudget! + int.parse(budgetQuantity));
 
     final budget = Budget(
       budgetName: valueBudgetTitle.text.toString(),

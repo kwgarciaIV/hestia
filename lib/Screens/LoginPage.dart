@@ -78,6 +78,11 @@ class _LoginPageState extends State<LoginPage> {
                       await SharedPreferences.getInstance();
                   String name = username.text;
                   prefs.setString('displayName', name);
+
+                  SharedPreferences budgPref =
+                      await SharedPreferences.getInstance();
+                  budgPref.setInt('displayBudget', 0);
+
                   Navigator.push(
                     context,
                     PageTransition(

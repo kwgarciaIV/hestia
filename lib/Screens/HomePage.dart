@@ -92,9 +92,11 @@ class _HomePageState extends State<HomePage> {
 
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      displayName = prefs.getString('displayName');
-    });
+    setState(
+      () {
+        displayName = prefs.getString('displayName');
+      },
+    );
   }
 
   @override
@@ -198,9 +200,6 @@ class _HomePageState extends State<HomePage> {
                             : task.isEmpty
                                 ? Text('No Tasks', style: kLabelInputField)
                                 : buildTask(),
-                        //Text(
-                        //  'Task Length: ' + task.length.toString(),
-                        //style: kLabelInputField)
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -227,7 +226,11 @@ class _HomePageState extends State<HomePage> {
                                     desc:
                                         (snapshot.data as dynamic)[randomNumber]
                                             .text);
-                              } else {
+                              } else if (((snapshot.data
+                                              as dynamic)[randomNumber]
+                                          .author)
+                                      .length <
+                                  18) {
                                 return NotificationCard(
                                     title: (((snapshot.data
                                             as dynamic)[randomNumber]
@@ -236,15 +239,17 @@ class _HomePageState extends State<HomePage> {
                                     desc:
                                         (snapshot.data as dynamic)[randomNumber]
                                             .text);
+                              } else {
+                                return NotificationCard(
+                                    title: 'Thomas Edison',
+                                    categ:
+                                        'Genius is one percent inspiration and ninety-nine percent perspiration.',
+                                    desc: 'Quotes');
                               }
                             },
                           ),
                         ),
-                      )
-                      // NotificationCard(
-                      //     title: 'Lorem Ipsum',
-                      //     categ: 'Category',
-                      //     desc: 'Lorem ipsum dolor sit amet, consectetur '),
+                      ),
                     ],
                   ),
                 ),
