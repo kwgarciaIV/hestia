@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class AddBudgetPopUp extends StatefulWidget {
   final Budget? budget;
@@ -50,6 +51,11 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
     var format =
         NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'PHP');
     return format.currencySymbol;
+  }
+
+  void playSound(String audio) {
+    final player = AudioCache(prefix: 'audio/');
+    player.play(audio);
   }
 
   @override
@@ -217,6 +223,7 @@ class _AddBudgetPopUpState extends State<AddBudgetPopUp> {
               onTap: () {
                 print('save button pressed');
                 if (_formBudgetKey.currentState!.validate()) {
+                  playSound('AddBudget.mp3');
                   addOrUpdateBudget();
                   print(valueBudgetTitle.text.toString());
                   print(valueBudgetQuantity.text.toString());

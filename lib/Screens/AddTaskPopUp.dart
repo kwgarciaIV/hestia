@@ -4,6 +4,7 @@ import 'package:hestia/constants.dart';
 import 'package:hestia/Model/task.dart';
 import 'package:hestia/Database/task_database.dart';
 import 'package:hestia/Screens/HomePage.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class AddTaskPopUp extends StatefulWidget {
   final Task? task;
@@ -34,6 +35,11 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
     taskTitle = widget.task?.taskTitle ?? '';
     taskDescription = widget.task?.taskDescription ?? '';
     taskCategory = widget.task?.taskCategory ?? '';
+  }
+
+  void playSound(String audio) {
+    final player = AudioCache(prefix: 'audio/');
+    player.play(audio);
   }
 
   @override
@@ -228,6 +234,7 @@ class _AddTaskPopUpState extends State<AddTaskPopUp> {
               onTap: () {
                 print('save button pressed');
                 if (_formTaskKey.currentState!.validate()) {
+                  playSound('AddTaskInventory.mp3');
                   addOrUpdateTask();
                   print(valueTaskTitle.text.toString());
                   print(valueTaskDescription.text.toString());

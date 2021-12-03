@@ -5,6 +5,7 @@ import 'package:hestia/Database/inventory_database.dart';
 import 'package:hestia/Model/inventory.dart';
 import 'package:flutter/services.dart';
 import 'package:hestia/Screens/InventoryPage.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class AddInventoryPopUp extends StatefulWidget {
   final Inventory? inventory;
@@ -28,6 +29,11 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void playSound(String audio) {
+    final player = AudioCache(prefix: 'audio/');
+    player.play(audio);
   }
 
   @override
@@ -294,6 +300,7 @@ class _AddInventoryPopUpState extends State<AddInventoryPopUp> {
               onTap: () {
                 print('save button pressed');
                 if (_formInventoryKey.currentState!.validate()) {
+                  playSound('AddTaskInventory.mp3');
                   addOrUpdateInventory();
                   print(valueInventoryTitle.text.toString());
                   print(valueInventoryQuantity.text.toString());
