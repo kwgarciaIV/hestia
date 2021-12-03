@@ -147,14 +147,14 @@ class _AboutUsPageState extends State<AboutUsPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 3),
                     child: Text(
-                      '\tEmail: hestiabytessera@gmail.com',
+                      '\tEmail: hutaolover12x2@gmail.com',
                       style: kAboutUs,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 3),
                     child: Text(
-                      '\tNumber: 0912 345 6789',
+                      '\tNumber: 0917 861 1117',
                       style: kAboutUs,
                     ),
                   ),

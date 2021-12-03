@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hestia/Screens/HomePage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hestia/Weather/weather.dart';
+import 'package:hestia/constants.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Scaffold(
       body: Center(
         child: SpinKitDoubleBounce(
-          color: Colors.white,
+          color: kVeryDarkGreen,
           size: 100.0,
         ),
       ),
